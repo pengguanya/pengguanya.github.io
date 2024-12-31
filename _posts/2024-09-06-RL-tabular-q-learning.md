@@ -2,7 +2,8 @@
 title: "Reinformant Learning: Tabular Q-Learning Implementation and Debugging"
 date: 2024-09-06
 author: peng
-categories: [MachineLearning, ReinforcementLearning]
+categories: [Blogging, DataScience]
+tags: [reinforcement-learning, q-learning, tabular-q-learning]
 math: true
 ---
 

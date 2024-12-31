@@ -2,7 +2,8 @@
 title: "Gaussian Mix Model and EM-Algorithm"
 date: 2024-08-17
 author: peng
-categories: Statistics
+categories: [Blogging, DataScience]
+tags: [Gaussian Mix Model, EM-Algorithm]
 math: true
 ---
 

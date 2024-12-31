@@ -2,7 +2,8 @@
 title: "Clinical Trials Safety Reporting 101: A Practical, Industry-Wide Overview"
 date: 2024-12-31
 author: peng
-categories: [ClinicalTrial, DrugDevelopment]
+categories: [Blogging, DrugDevelopment]
+tags: [clinical trials, safety reporting, pharmacovigilance]
 math: false
 ---
 

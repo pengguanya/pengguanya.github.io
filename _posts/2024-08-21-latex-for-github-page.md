@@ -2,7 +2,8 @@
 title: "Integrating LaTeX in GitHub Pages with MathJax and KaTeX"
 date: 2024-08-21
 author: peng
-categories: Tech
+categories: [Blogging, Tech]
+tags: [jekyll, github-pages, latex, mathjax, katex]
 ---
 
 ## Introduction
