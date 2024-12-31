@@ -1,7 +1,7 @@
 ---
 title: "Clinical Trials Safety Reporting 101: A Practical, Industry-Wide Overview"
 date: 2024-12-31
-author: Guanya Peng
+author: peng
 categories: [ClinicalTrial, DrugDevelopment]
 math: false
 ---
