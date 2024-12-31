@@ -1,4 +1,11 @@
-# Clinical Trials Safety Reporting 101: A Practical, Industry-Wide Overview
+---
+title: "Clinical Trials Safety Reporting 101: A Practical, Industry-Wide Overview"
+date: 2024-12-31
+author: Guanya Peng
+categories: [ClinicalTrial, DrugDevelopment]
+math: false
+---
+
 
 > **Note:** This guide is meant to illustrate generally applicable processes and standards used throughout the clinical research industry. It is not tied to any specific company, drug, or therapeutic area. The goal is to provide a broad, intuitive look at how safety is handled in most clinical trials.
 
