@@ -5,6 +5,9 @@ author: peng
 categories: [Blogging, DataScience]
 tags: [statistics, multivariate-gaussian, covariance-matrix]
 math: true
+image:
+  path: assets/headers/2024-08-18-covariance-matrix.webp
+  alt: Covariance Matrix
 ---
 
 ### Covariance: The Foundation
