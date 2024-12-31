@@ -5,6 +5,9 @@ author: peng
 categories: [Blogging, DataScience]
 tags: [reinforcement-learning, q-learning, tabular-q-learning]
 math: true
+image:
+  path: assets/headers/2024-09-06-RL-tabular-q-learning.webp
+  alt: Cumulative Rewards in Q-learning
 ---
 
 # Reinforcement Learning: Tabular Q-Learning Implementation and Debugging

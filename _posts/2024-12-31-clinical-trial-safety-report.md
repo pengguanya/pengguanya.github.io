@@ -6,7 +6,7 @@ categories: [Blogging, DrugDevelopment]
 tags: [clinical trials, safety reporting, pharmacovigilance]
 math: false
 image:
-  path: assets/headers/2024-12-31-clinical-trial-safety-report.jpeg
+  path: assets/headers/2024-12-31-clinical-trial-safety-report.webp
   alt: Safty Reporting in Clinical Trials
 ---
 
