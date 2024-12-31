@@ -64,7 +64,7 @@ While sponsors, contract research organizations (CROs), and other service provid
 
 ## 5. Reporting Deadlines for SUSARs
 
-By international guidelines—most notably [ICH E2A](https://database.ich.org/sites/default/files/E2A_Guideline.pdf)—and relevant regional regulations (like [21 CFR 312.32](https://www.ecfr.gov/current/title-21/chapter-I/subchapter-D/part-312) in the United States or [EudraLex Volume 10](https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-10-clinical-trials_en) in the European Union), **SUSAR reporting** has strict timelines to ensure that any dangerous signals are quickly communicated to health authorities and ethics committees.
+By international guidelines—most notably [ICH E2A](https://database.ich.org/sites/default/files/E2A_Guideline.pdf)—and relevant regional regulations (like [21 CFR 312.32](https://www.ecfr.gov/current/title-21/chapter-I/subchapter-D/part-312) in the United States or [EudraLex Volume 10](https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-10_en) in the European Union), **SUSAR reporting** has strict timelines to ensure that any dangerous signals are quickly communicated to health authorities and ethics committees.
 
 1. **Fatal or Life-Threatening SUSARs**  
    - **Initial report due within 7 days** after the sponsor (or responsible party) becomes aware of the case.  
