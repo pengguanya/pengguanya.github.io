@@ -4,6 +4,9 @@ date: 2024-08-21
 author: peng
 categories: [Blogging, Tech]
 tags: [jekyll, github-pages, latex, mathjax, katex]
+image:
+  path: assets/headers/2024-09-06-RL-tabular-q-learning.webp
+  alt: LaTeX Rendering in GitHub Pages
 ---
 
 ## Introduction
