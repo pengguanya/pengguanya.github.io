@@ -10,8 +10,6 @@ image:
   alt: Cumulative Rewards in Q-learning
 ---
 
-# Reinforcement Learning: Tabular Q-Learning Implementation and Debugging
-
 ## Introduction
 
 Reinforcement Learning (RL) is a fascinating area of machine learning where an agent learns to make decisions by interacting with an environment. One of the foundational algorithms in RL is Q-learning, specifically Tabular Q-learning. This article aims to delve into the theory, principles, and mathematics behind Tabular Q-learning, followed by a detailed walkthrough of my implementation. I will also share my debugging process, illustrating how the results evolved through each step, and provide an analysis of the outcomes.
