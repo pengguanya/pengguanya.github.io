@@ -18,36 +18,36 @@ Reinforcement Learning (RL) is a fascinating area of machine learning where an a
 
 ### The Reinforcement Learning Framework
 
-In RL, an agent interacts with an environment over discrete time steps. At each time step $t$, the agent:
+In RL, an agent interacts with an environment over discrete time steps. At each time step $$ t $$, the agent:
 
-1. Observes the current state $s_t$.
-2. Chooses an action $a_t$ based on a policy $\pi$.
-3. Receives a reward $r_{t+1}$ and transitions to a new state $s_{t+1}$.
+1. Observes the current state \$$ s_t $$.
+2. Chooses an action \$$ a_t $$ based on a policy \$$ \pi $$.
+3. Receives a reward \$$ r_{t+1} $$ and transitions to a new state \$$ s_{t+1} $$.
 
-The goal of the agent is to learn a policy $\pi$ that maximizes the cumulative reward over time.
+The goal of the agent is to learn a policy $$ \pi $$ that maximizes the cumulative reward over time.
 
 ### Q-Learning
 
-Q-learning is an off-policy RL algorithm that aims to learn the optimal action-value function $Q^*(s, a)$, which represents the maximum expected cumulative reward achievable from state $s$ by taking action $a$ and following the optimal policy thereafter.
+Q-learning is an off-policy RL algorithm that aims to learn the optimal action-value function $$ Q^*(s, a) $$, which represents the maximum expected cumulative reward achievable from state $$ s $$ by taking action $$ a $$ and following the optimal policy thereafter.
 
 The Q-value update rule is given by:
 
 $$ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \left[ r_{t+1} + \gamma \max_{a'} Q(s_{t+1}, a') - Q(s_t, a_t) \right] $$
 
 where:
-- $\alpha$ is the learning rate.
-- $\gamma$ is the discount factor.
-- $r_{t+1}$ is the reward received after taking action $a_t$ in state $s_t$.
-- $\max_{a'} Q(s_{t+1}, a')$ is the maximum Q-value for the next state $s_{t+1}$.
+- \$$ \alpha $$ is the learning rate.
+- \$$ \gamma $$ is the discount factor.
+- \$$ r_{t+1} $$ is the reward received after taking action \$$ a_t $$ in state \$$ s_t $$.
+- \$$ \max_{a'} Q(s_{t+1}, a') $$ is the maximum Q-value for the next state \$$ s_{t+1} $$.
 
 ### Tabular Q-Learning
 
-In Tabular Q-learning, the Q-values are stored in a table (or matrix) $Q[s, a]$. This approach is feasible for environments with a small, discrete state and action space.
+In Tabular Q-learning, the Q-values are stored in a table (or matrix) $$ Q[s, a] $$. This approach is feasible for environments with a small, discrete state and action space.
 
 ### Epsilon-Greedy Policy
 The epsilon-greedy policy is a strategy used to determine the actions an agent should take given its current state.  In RL, the agent needs to explore the environment to discover the optimal policy. If the agent only exploits its current knowledge (__exploitation__: always choosing the action with the highest Q-value), it may get stuck in a local optimum and miss out on better long-term strategies. On the other hand, if the agent takes actions completely at random (__exploration__), it may never learn the best actions to take, leading to poor performance.
 
-Epsilon-greedy balances exploration and exploitation by selecting a random action with probability $\epsilon$ (exploration) and the action with the highest Q-value with probability $1 - \epsilon$ (exploitation). It ensures that the agent explores the environment sufficiently while still exploiting known good actions to maximize rewards.
+Epsilon-greedy balances exploration and exploitation by selecting a random action with probability $$ \epsilon $$ (exploration) and the action with the highest Q-value with probability $$ 1 - \epsilon $$ (exploitation). It ensures that the agent explores the environment sufficiently while still exploiting known good actions to maximize rewards.
 
 Formally, the action selection can be described as:
 
@@ -140,7 +140,7 @@ For **Code Version 0**, the Q-value is initialized as 0 for each iteration, and 
 
 For **Code Version 1**, the Q-value initialization was removed, but the update logic was still incorrect. The Q-value update only occurred in the else clause, which corresponded to the terminal state. This resulted in suboptimal learning performance (Avg Reward = 0.23).
 
-For **Code Version 2**, the Q-value update logic was corrected, but the handling of the terminal state was still incorrect. The Q-value got updated in every state, but the max Q-value for the next state $\max_{a'} Q(s_{t+1}, a')$ only calcualted when the state is terminal otherwise it is set to 0. Thus in each iteration before the terminal state we wrongly update the Q-value as:
+For **Code Version 2**, the Q-value update logic was corrected, but the handling of the terminal state was still incorrect. The Q-value got updated in every state, but the max Q-value for the next state $$ \max_{a'} Q(s_{t+1}, a') $$ only calcualted when the state is terminal otherwise it is set to 0. Thus in each iteration before the terminal state we wrongly update the Q-value as:
 
 $$ Q(s_t, a_t) = (1 - \alpha) \cdot Q(s_t, a_t) + \alpha \cdot (r_{t+1} + \gamma \cdot 0) $$
 
