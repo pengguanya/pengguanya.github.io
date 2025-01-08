@@ -20,9 +20,9 @@ Reinforcement Learning (RL) is a fascinating area of machine learning where an a
 
 In RL, an agent interacts with an environment over discrete time steps. At each time step $$ t $$, the agent:
 
-1. Observes the current state \$$ s_t $$.
-2. Chooses an action \$$ a_t $$ based on a policy \$$ \pi $$.
-3. Receives a reward \$$ r_{t+1} $$ and transitions to a new state \$$ s_{t+1} $$.
+1. Observes the current state $$ s_t $$.
+2. Chooses an action $$ a_t $$ based on a policy $$ \pi $$.
+3. Receives a reward $$ r_{t+1} $$ and transitions to a new state $$ s_{t+1} $$.
 
 The goal of the agent is to learn a policy $$ \pi $$ that maximizes the cumulative reward over time.
 
