@@ -35,10 +35,10 @@ The Q-value update rule is given by:
 $$ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \left[ r_{t+1} + \gamma \max_{a'} Q(s_{t+1}, a') - Q(s_t, a_t) \right] $$
 
 where:
-- \$$ \alpha $$ is the learning rate.
-- \$$ \gamma $$ is the discount factor.
-- \$$ r_{t+1} $$ is the reward received after taking action \$$ a_t $$ in state \$$ s_t $$.
-- \$$ \max_{a'} Q(s_{t+1}, a') $$ is the maximum Q-value for the next state \$$ s_{t+1} $$.
+- $$ \alpha $$ is the learning rate.
+- $$ \gamma $$ is the discount factor.
+- $$ r_{t+1} $$ is the reward received after taking action $$ a_t $$ in state $$ s_t $$.
+- $$ \max_{a'} Q(s_{t+1}, a') $$ is the maximum Q-value for the next state $$ s_{t+1} $$.
 
 ### Tabular Q-Learning
 
