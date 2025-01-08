@@ -1,5 +1,9 @@
 #  The contact options.
 
+- type: linkedin
+  icon: 'fab fa-linkedin'   # icons powered by <https://fontawesome.com/>
+  url:  'https://www.linkedin.com/in/guanyapeng'                  # Fill with your Linkedin homepage
+
 - type: github
   icon: "fab fa-github"
 
@@ -19,13 +23,15 @@
 #   icon: 'fab fa-mastodon'   # icons powered by <https://fontawesome.com/>
 #   url:  ''                  # Fill with your Mastodon account page, rel="me" will be applied for verification
 #
-- type: linkedin
-  icon: 'fab fa-linkedin'   # icons powered by <https://fontawesome.com/>
-  url:  'https://www.linkedin.com/in/guanyapeng'                  # Fill with your Linkedin homepage
 #
 - type: stack-overflow
   icon: 'fab fa-stack-overflow'
   url:  'https://stackoverflow.com/users/2883282/englealuze?tab=profile'                  # Fill with your stackoverflow homepage
+
+- type: rss
+  icon: "fas fa-rss"
+  noblank: true
+
 #
 # - type: bluesky
 #   icon: 'fa-brands fa-bluesky'
