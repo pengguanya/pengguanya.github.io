@@ -48,7 +48,7 @@ Thorough planning for regulatory submissions is essential to avoid delays and en
 
 To navigate these differences, it's advisable to assess regulatory requirements early in the planning phase
 
-## Sourcing Investigational Medical Devices for Post-Market Studies
+## Sourcing Investigational Medical Devices (IMD) for Post-Market Studies
 With regulatory approvals secured and documentation prepared, the focus shifts to the practical aspects of conducting the study. A vital step in this process is obtaining the investigational medical device needed for the investigation. Understanding the options and considerations for sourcing the IMD ensures that the study can proceed efficiently and in compliance with all regulations. There are two otions for obtaining the IMD as explained following.
 
 ### Commercial Sources
