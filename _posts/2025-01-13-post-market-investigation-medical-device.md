@@ -7,7 +7,7 @@ tags: [medical devices, post-market, regulation]
 math: true
 image:
   path: assets/headers/2025-01-13-post-market-investigation-medical-device.webp
-  alt: "Post Market Investigation for Medical Device"
+  alt: "Post-Market Investigation for Medical Device"
 ---
 
 Throughout my career, I've had the unique opportunity to work in both the medical device and pharmaceutical industries. This experience has highlighted the unique challenges and specific nuances of medical devices—areas often overlooked but crucial for ensuring patient safety and advancing healthcare innovation. With the rapid growth of artificial intelligence (AI), there's an increasing need to understand how these technologies will be regulated, especially as software becomes a medical device. In this blog post, I want to share insights into post-market clinical investigations for medical devices, exploring complexities, best practices, and real-world examples to help others better understand these important topics.
@@ -17,7 +17,7 @@ While pharmaceuticals and medical devices share foundational regulations to ensu
 
 **Medical devices**, especially Class III devices, evolve rapidly due to technological advancements and require significant user interaction. Innovations such as implantable technologies, advanced diagnostics, and software as medical devices (including AI applications) continually reshape the field. This rapid evolution poses unique challenges in regulation and clinical investigations compared to pharmaceuticals.
 
-A distinct aspect of medical devices is the nature of clinical investigations, particularly in the post-market setting. Unlike pharmaceuticals, where post-approval changes are relatively infrequent, medical devices often undergo iterative enhancements much more often after they enter the market. Software updates, design modifications, and new usage parameters necessitate ongoing clinical evaluations to ensure continued safety and performance.
+A distinct aspect of medical devices is the nature of clinical investigations, particularly in the post-market setting. Unlike pharmaceuticals, where post-approval changes are relatively infrequent, medical devices often undergo iterative enhancements after they enter the market. Software updates, design modifications, and new usage parameters necessitate ongoing clinical evaluations to ensure continued safety and performance.
 
 ### Pre-Market vs. Post-Market Investigations
 In the **pre-market phase**, clinical investigations aim to demonstrate that a new device is safe and effective for its intended use. These studies typically involve controlled environments and predefined endpoints, focusing on regulatory approval requirements.
@@ -140,17 +140,17 @@ A **Serious Public Health Threat** in the context of medical devices might invol
     The [FDA Medical Device Reporting (MDR) Regulation](https://www.fda.gov/medical-devices/medical-device-safety/medical-device-reporting-mdr-how-report-medical-device-problems) mandates reporting of adverse events and device-related deaths or serious injuries.
 
 
-### Case Study: Managing a Device Deficiency in Radiotherapy Planning Software
+## Case Study: Managing a Device Deficiency in Radiotherapy Planning Software
 
 In a post-market clinical investigation, a company evaluated the performance of their CE-marked **radiotherapy treatment planning software** used in cancer therapy. This software assists oncologists in creating precise radiation dose plans for patients, aiming to maximize tumor targeting while minimizing exposure to healthy tissues.
 
-#### Incident Overview
+### Incident Overview
 
 During the study, clinicians at several sites reported discrepancies between the radiation doses calculated by the software and those actually delivered by the radiotherapy equipment. Over a two-week period, **three cases** emerged where patients received higher radiation doses than planned, leading to unexpected side effects such as severe skin reactions and fatigue.
 
 Recognizing the potential for serious patient harm, investigators reported these incidents immediately to the sponsor, adhering to the required timelines for reporting device deficiencies as specified for such events in medical device studies.
 
-#### Actions Taken
+### Actions Taken
 
 Specific steps were taken to address the issue, incorporating key learnings and regulatory requirements relevant to medical devices:
 
