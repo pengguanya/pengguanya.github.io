@@ -10,7 +10,9 @@ image:
   alt: "Post-Market Investigation for Medical Device"
 ---
 
-Throughout my career, I've had the unique opportunity to work in both the medical device and pharmaceutical industries. This experience has highlighted the unique challenges and specific nuances of medical devices—areas often overlooked but crucial for ensuring patient safety and advancing healthcare innovation. With the rapid growth of artificial intelligence (AI), there's an increasing need to understand how these technologies will be regulated, especially as software becomes a medical device. In this blog post, I want to share insights into post-market clinical investigations for medical devices, exploring complexities, best practices, and real-world examples to help others better understand these important topics.
+Throughout my career, I've had the unique opportunity to work in both the medical device and pharmaceutical industries. This experience has highlighted the unique challenges and specific nuances of medical devices—areas often overlooked but crucial for ensuring patient safety and advancing healthcare innovation. With the rapid growth of artificial intelligence (AI), there's an increasing need to understand how these technologies will be regulated, especially as software becomes a medical device.
+
+In this blog post, I want to share insights into post-market clinical investigations for medical devices, exploring complexities, best practices, and real-world examples to help others better understand these important topics.
 
 ## The Unique Landscape of Medical Device Clinical Investigations
 While pharmaceuticals and medical devices share foundational regulations to ensure safety, efficacy and quality—like risk management, Good Clinical Practice (GCP), and post-market surveillance—their paths diverge significantly in practice.
