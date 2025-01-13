@@ -39,7 +39,7 @@ Whether an IB is required can depend on local regulations and the specifics of t
 
 It's important to consult local regulations in each country where the study will take place. Even if an IB isn't explicitly required, having one prepared can facilitate discussions with regulatory authorities and ethics committees, and it can be valuable if questions arise during the study.
 
-### Planning Regulatory Submissions Before Study Initiation
+### Planning Regulatory Submissions
 Thorough planning for regulatory submissions is essential to avoid delays and ensure a smooth study launch. Requirements can vary significantly:
 
 * **Mandatory Submissions**: Some countries require submissions to regulatory authorities for all post-market studies, regardless of their nature.
