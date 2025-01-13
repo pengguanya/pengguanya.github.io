@@ -6,7 +6,7 @@ categories: [Blogging, DrugDevelopment]
 tags: [medical devices, post-market, regulation]
 math: true
 image:
-  path: assets/headers/2025-01-13-post-market-investigation-medical-device.md
+  path: assets/headers/2025-01-13-post-market-investigation-medical-device.webp
   alt: "Post Market Investigation for Medical Device"
 ---
 
