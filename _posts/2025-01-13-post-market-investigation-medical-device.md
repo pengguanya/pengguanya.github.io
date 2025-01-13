@@ -188,7 +188,7 @@ Specific steps were taken to address the issue, incorporating key learnings and 
    - **Submission of Final Investigation Report**: Provided a comprehensive report to health authorities within the required 90-day period, detailing root cause analysis, corrective actions, and preventive measures.
    - **Post-Market Surveillance Enhancement**: Updated the post-market clinical follow-up plan to include enhanced monitoring of software updates and user feedback.
 
-#### Key Learnings Specific to Medical Devices
+### Key Learnings Specific to Medical Devices
 
 - **Timely Reporting and Role Clarity**: Prompt reporting by investigators and verification by the SAE Responsible are critical. The **Investigator** reported the incidents and the **SAE Responsible** ensured reports were valid, reflecting specific points from earlier discussions.
 
