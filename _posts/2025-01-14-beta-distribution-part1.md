@@ -72,7 +72,10 @@ A rigorous proof of the conjugacy property can be found [here](https://en.wikipe
 
 A numeric example is shown in the plot below. Under a naive inference scenario, when we observe 5 sucesses and 5 failures, we may think about the success rate as $$ 50 \% $$. But under a Beysian setup, with the convinience of Beta piror and its property of conjugacy, we can easily incorperate historical data to form prior belief and update it.  but wi 
 
-![Prior vs. Posterior](assets/img/2025-01-14-beta-distribution-part1/prior_vs_posterior.png)
+<!--![Prior vs. Posterior](assets/img/2025-01-14-beta-distribution-part1/prior_vs_posterior.png) { width=50% }-->
+
+<!-- Inserting the Image -->
+<img src="assets/img/2025-01-14-beta-distribution-part1/prior_vs_posterior.png" alt="Prior vs. Posterior" style="display: block; margin: 0 auto; width: 80%; height: auto;">
 
 Assume we have prior knowledge of $$ 20 \% $$ success rate obtained from historical data containing 2 successes and 8 failures, with 5 successes and 5 failures are actually observed, we can update our belief to a Beta posterior $$ \text{Beta}(2+5, 8+5) $$. The plot shows the shift of the prior distribution to the posterior distribution with added information. Worth to note, the mean of the posterior distribution is $$ \frac{2+5}{2+5+8+5} = \frac{7}{20} = 35 \% $$, which is in between of our prior belief $$ 20 \% $$ and the naive inference soly based on observations $$ 50 \% $$.
 
