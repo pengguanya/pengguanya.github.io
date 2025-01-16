@@ -10,45 +10,52 @@ image:
   alt: Beta Distribution
 ---
 
-I will be writing a series of posts on the beta distribution, a versatile distribution in statistics and machine learning. This first part will provide an intuitive understanding of the beta distribution and explore its properties.
+This post kicks off a series on the Beta distribution, a versatile probability distribution often used in statistics and machine learning. In this first part, I will develop an intuitive understanding of the Beta distribution and examine its fundamental properties.
 
 ## General Properties of the Beta Distribution
 
-The Beta distribution is defined on the interval $$[0,1]$$, making it ideal for modeling probabilities. It is characterized by two shape parameters, $$ \alpha $$ and $$ \beta $$, which control the shape of the distribution:
+The Beta distribution is defined on the interval $$[0,1]$$. This makes it particularly convenient for modeling quantities naturally constrained between 0 and 1—such as probabilities and proportions. It is governed by two **shape parameters**, $$\alpha$$ and $$\beta$$, which determine how the distribution is skewed:
 
-$$ \alpha $$: Affects the weight of successes.
+- $$\alpha$$: Determines how heavily the distribution is weighted toward “success.”
+- $$\beta$$: Determines how heavily the distribution is weighted toward “failure.”
 
-$$ \beta $$: Affects the weight of failures.
+### Probability Density Function (PDF)
 
-The probability density function (PDF) of the Beta distribution is:
+The PDF of the Beta distribution is given by
 
-$$ \text{Beta}(x | \alpha, \beta) = \frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}{B(\alpha, \beta)} $$
+$$
+\text{Beta}(x \mid \alpha, \beta) = \frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}{B(\alpha, \beta)},
+$$
 
-, where $$ B(\alpha, \beta) $$ is the Beta function, a normalizing constant that ensures the PDF integrates to 1.
+where $$B(\alpha, \beta)$$ is the Beta function, a normalizing constant ensuring the PDF integrates to 1.
 
 ### Shape of the Curve
 
-* $$ \alpha = \beta = 1 $$: Uniform distribution.
-* $$ \alpha > \beta $$ : Skewed toward 1 (success).
-* $$ \alpha < \beta $$ : Skewed toward 0 (failure).
-* $$ \alpha, \beta > 1 $$ : Bell-shaped.
-* $$ \alpha, \beta < 1 $$ : U-shaped.
+Here’s how changes in $$\alpha$$ and $$\beta$$ affect the shape of the distribution:
 
-To get intuitions of the shape, think about Beta distribution as parametrizing on the weights of success and failure rates of a Bernoulli trials: $$ p^{\alpha -1} (1-p)^{\beta - 1} $$.
+- $$\alpha = \beta = 1$$: Uniform distribution on $$[0,1]$$.
+- $$\alpha > \beta$$: Skewed toward 1 (i.e., “success”).
+- $$\alpha < \beta$$: Skewed toward 0 (i.e., “failure”).
+- $$\alpha, \beta > 1$$: Bell-shaped.
+- $$\alpha, \beta < 1$$: U-shaped curve.
 
-When we have no prior information regarding the success rate, set the weight to 0 resulting constant rate and uniform distribution. When we weight more on success, the distribution will be skewed toward 1, and vice versa. 
+A helpful interpretation is to view the Beta distribution as a way of encoding different levels of “success” vs. “failure” weights:
+
+$$
+p^{\alpha - 1} (1-p)^{\beta - 1}.
+$$
+
+- **No prior information**: $$\alpha = \beta = 1$$ yields a uniform distribution.
+- **Heavier weight on success** ($$\alpha > \beta$$): The distribution skews toward 1.
+- **Heavier weight on failure** ($$\alpha < \beta$$): The distribution skews toward 0.
 
 ![Shape of the Curves of Beta Distribution](assets/img/2025-01-14-beta-distribution-part1/Beta_curve_bell_vs_u.png)
 
-This intuition can be linked to following quantitative facts regarding the expectation of the Reta distribution and further deepen the understanding of the properties of the Beta distribution:
+We can also evaluate the **mean (expected value)** of the Beta distribution, which helps us interpret its shape and deepen our quantitative understanding of how $$\alpha$$ and $$\beta$$ influence the distribution:
 
-$$ 
-\begin{align*}
-  \mu = \mathbf{E}[X] &= \int_{0}^{1} x f(x; \alpha, \beta) \, dx \\
-      &= \int_{0}^{1} x \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{B(\alpha, \beta)} \, dx \\
-      &= \frac{\alpha}{\alpha + \beta} \\
-      &= \frac{1}{1 + \frac{\beta}{\alpha}}.
-\end{align*} 
+$$
+\mu = \mathbf{E}[X] = \int_{0}^{1} x \, \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{B(\alpha, \beta)} \, dx
+= \frac{\alpha}{\alpha + \beta} = \frac{1}{1 + \frac{\beta}{\alpha}}.
 $$
 
 If we take the limit of expectation with regards to $\frac{\beta}{\alpha}$:
@@ -62,7 +69,12 @@ $$
 \right.
 $$
 
-This corresponds to what the plot shows above and explains the skrewness of the curve under the different senarios when $\alpha$ is greater or smaller than $\beta$.
+This shows that:
+
+- As $$\frac{\beta}{\alpha} \to 0$$, the mean $$\mu \to 1$$.
+- As $$\frac{\beta}{\alpha} \to \infty$$, the mean $$\mu \to 0$$.
+
+Hence, when $$\alpha$$ is much larger than $$\beta$$, the distribution concentrates near 1, and vice versa.
 
 ## Beta as a Conjugate Prior in Bayesian Inference
 
