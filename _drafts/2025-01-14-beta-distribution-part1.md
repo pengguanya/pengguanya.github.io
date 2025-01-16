@@ -270,10 +270,72 @@ Another simulation we can do is to **measure coverage across different sample si
 
 As shown with simulated data, Clopper–Pearson remains at or above 95% coverage (reflecting its “exact” nature), while Wald intervals can dip below 95% for smaller sample sizes. Seeing how both curves evolve as $$n$$ grows helps us understand the **trade-off** between accuracy and interval width for each method.
 
+<details>
+<summary>R Code for Coverge vs. n - Click to Expand</summary>
+
+{% highlight r %}
+library(binom)
+library(ggplot2)
+
+set.seed(42)
+
+p_true    <- 0.3
+n_values  <- c(5, 10, 30, 50, 100, 500)  # Example range
+N_sims    <- 2000
+alpha     <- 0.05
+
+results <- data.frame(
+  n = integer(),
+  method = character(),
+  coverage = numeric()
+)
+
+for (n in n_values) {
+  cp_cover <- 0
+  wald_cover <- 0
+  
+  for (i in seq_len(N_sims)) {
+    k <- rbinom(1, size = n, prob = p_true)
+    p_hat <- k / n
+    
+    # Clopper-Pearson
+    cp_int <- binom.confint(x = k, n = n, methods = "exact", conf.level = 1 - alpha)
+    cp_lower <- cp_int$lower
+    cp_upper <- cp_int$upper
+    cp_cover <- cp_cover + (p_true >= cp_lower & p_true <= cp_upper)
+    
+    # Wald
+    z_val <- qnorm(1 - alpha/2)
+    se_hat <- sqrt(p_hat*(1 - p_hat)/n)
+    wald_lower <- max(0, p_hat - z_val*se_hat)
+    wald_upper <- min(1, p_hat + z_val*se_hat)
+    wald_cover <- wald_cover + (p_true >= wald_lower & p_true <= wald_upper)
+  }
+  
+  results <- rbind(results, data.frame(n = n,
+                                       method = "Clopper-Pearson",
+                                       coverage = cp_cover / N_sims))
+  results <- rbind(results, data.frame(n = n,
+                                       method = "Wald",
+                                       coverage = wald_cover / N_sims))
+}
+
+ggplot(results, aes(x = factor(n), y = coverage, color = method, group = method)) +
+  geom_line(aes(linetype = method)) +
+  geom_point() +
+  geom_hline(yintercept = 0.95, linetype = "dashed") +
+  labs(title = "Coverage vs. n (p_true = 0.3)",
+       x = "Number of Trials (n)",
+       y = "Coverage") +
+  theme_minimal()
+{% endhighlight %}
+
+</details>
 
 ### Beta-Binomial Model for Over-Dispersion
 
 Another area where the Beta distribution shows up in frequentist analysis is the **Beta-Binomial model**, which can be thought of as a “two-stage” binomial process that introduces **over-dispersion**—a phenomenon where observed variance is higher than expected under a simple binomial assumption.
+
 
 #### The Two-Stage Process
 
