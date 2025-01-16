@@ -69,7 +69,7 @@ Hence, when $$\alpha$$ is much larger than $$\beta$$, the distribution concentra
 
 ## Beta as a Conjugate Prior in Bayesian Inference
 
-A key feature of the Beta distribution is that it serves as a **conjugate prior** for the Bernoulli, binomial, and other distributions in the exponential family. Conjugacy means that if you start with a Beta prior for a parameter $$p$$ (probability of success) and observe binomial data, the **posterior** for $$p$$ will also be a Beta distribution—just with updated parameters.
+A key feature of the Beta distribution is that it serves as a **conjugate prior** for the Bernoulli, binomial, and other distributions in the exponential family. Conjugacy means that if we start with a Beta prior for a parameter $$p$$ (probability of success) and observe binomial data, the **posterior** for $$p$$ will also be a Beta distribution—just with updated parameters.
 
 ### Conjugacy with the Bernoulli/Binomial Likelihood
 
@@ -171,17 +171,82 @@ p_{\text{upper}} =
 \end{cases}
 $$
 
-- $$ \mathrm{BetaInv}\bigl(p; \alpha, \beta\bigr) $$ denotes the **inverse** of the cumulative distribution function (CDF) of the  $$ \mathrm{Beta}(\alpha, \beta) $$ distribution. In many statistical software packages, this is referred to as `qbeta()` or an equivalent function.
-
-#### Why “Exact”?
+$$ \mathrm{BetaInv}\bigl(p; \alpha, \beta\bigr) $$ denotes the **inverse** of the cumulative distribution function (CDF) of the  $$ \mathrm{Beta}(\alpha, \beta) $$ distribution. In many statistical software packages, this is referred to as `qbeta()` or an equivalent function.
 
 The Clopper–Pearson interval is considered “exact” in the sense that the coverage probability is guaranteed to be at least $$ (1 - \alpha) $$ for every possible true $$ p $$. This comes at the cost of sometimes being more conservative (wider) than other approximate intervals (e.g., the Wilson interval).
 
 #### Relationship to the Beta Distribution
 
-Notice that the expressions for the lower and upper bounds involve **quantiles of the Beta distribution** with parameters related to $$ k $$ and $$ n - k $$. Even though we are not using a Bayesian approach here, the Beta distribution still appears naturally by “inverting” the binomial test to find regions of $$ p $$ that are plausible (i.e., cannot be rejected at the $$ \alpha/2 $$ significance level).
+##### 1. Binomial Cumulative Probabilities
 
-#### Simulation: Overall Converge and Interval Width
+Given a Binomial $$(n, p)$$  random variable  $$X$$ , the probability of seeing *up to*  $$k$$  successes is
+
+$$
+P(X \le k) \;=\; \sum_{i=0}^{k} \binom{n}{i}\, p^{i}\,(1 - p)^{n - i}.
+$$
+
+In the **Clopper–Pearson** method, we want to find the values of  $$p$$  (the true success probability) for which observing  $$k$$  successes is *not too surprising*. Concretely, we ensure  $$p$$  satisfies a chosen significance threshold ( $$\alpha$$ ) on both the lower and upper tails.
+
+##### 2. Constructing the Interval by “Slicing”
+
+To build a confidence interval, we solve for  $$p_{\text{lower}}$$  and  $$p_{\text{upper}}$$  such that:
+
+- The lower bound  $$p_{\text{lower}}$$  is where the cumulative probability  $$P(X \le k-1)$$  just hits  $$\alpha/2$$  (or similarly where  $$P(X \ge k)$$  is  $$\alpha/2$$ ).  
+- The upper bound  $$p_{\text{upper}}$$  is found by setting  $$P(X \le k)$$  equal to  $$1 - \alpha/2$$ .
+
+Mathematically, we solve $p$ for:
+
+$$
+\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2} \quad \text{or} \quad \sum_{i=k}^{n} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2},
+$$
+
+Intuitively, imagine **scanning** through  $$p \in [0,1]$$ . For each candidate $$p$$ , we measure:
+
+$$
+\sum_{i=0}^{k} \binom{n}{i}\, p^{i}\,(1 - p)^{n - i}.
+$$
+
+This value tells us how likely it is to see  $$k$$  or fewer successes if  $$p$$  were the true success rate. In **Clopper–Pearson**, we identify precisely which  $$p$$ -values make that cumulative probability match our chosen cutoffs ($$\alpha/2$$  for the lower tail,  $$1-\alpha/2$$  for the upper tail). By “slicing” the binomial distribution *exactly* at these points, we form the boundaries of our confidence interval—no normal approximation required—leading to “exact” coverage in repeated sampling.
+
+##### 3. From Binomial Sums to the Incomplete Beta Function
+
+A key step is recognizing that:
+
+$$
+\sum_{i=0}^{k} \binom{n}{i}\, p^{i}\,(1 - p)^{n - i}
+\;=\;
+1 - I_{p}(k + 1,\, n - k),
+$$
+
+where  $$I_{p}(\alpha,\beta)$$  is the **regularized incomplete Beta** function which is the CDF of Beta distribution, defined by
+
+$$
+I_{p}(\alpha,\beta)
+\;=\;
+\frac{1}{B(\alpha,\beta)}
+\int_{0}^{p}
+t^{\alpha - 1}\,(1 - t)^{\beta - 1}\,dt,
+$$
+and  $$B(\alpha,\beta)$$  is the complete Beta function. Essentially, **summing** binomial probabilities can be recast as **integrating** a function of the form  $$t^{\alpha-1}(1-t)^{\beta-1}$$ . This leads to the **CDF of Beta distribution**.   
+
+Therefore solving $p_{\text{lower}}$ for equation $$\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2}$$ is equivalent to solving a **Beta quantile** as for:
+
+$$
+I_{p}(k + 1,\, n - k) = 1 - \frac{\alpha}{2} \quad \text{or} \quad \mathbb{P}\left(p > p_{\text{lower}} \,\mid \, p \sim \text{Beta}(k+1, n-k)\right) = \frac{\alpha}{2}
+$$
+
+##### 4. Why the Beta Distribution?
+
+Binomial expressions contain terms like  $$p^{k}(1-p)^{n-k}$$ . When we integrate or “accumulate” these terms over  $$[0,1]$$ , we naturally arrive at the Beta family of functions as discussed above. In the Bayesian context we discused previously, this is often described as “conjugacy” but even in a frequentist procedure like Clopper–Pearson, the same Beta integrals emerge once we:
+
+1. Convert binomial cumulative sums to an integral expression, and  
+2. Invert that integral to solve for  $$p$$ .
+
+Hence, the Beta distribution acts as a continuous bridge between discrete binomial counts and probabilities in  $$[0,1]$$ . By pinpointing the exact **Beta quantiles** that correspond to certain binomial tail probabilities, we avoid normal approximations altogether. This gives Clopper–Pearson its **exact** coverage guarantee—even in scenarios with small  $$n$$  or extreme  $$p$$ .
+
+In short, **integrating** binomial probabilities leads us to Beta functions; **inverting** those Beta integrals produces the interval bounds. This tight connection is what powers the Clopper–Pearson interval—ensuring it captures the true  $$p$$  at least  $$(1 - \alpha) \times 100\%$$  of the time, *no matter* the sample size or the true  $$p$$ .
+
+#### Simulation: Overall Coverage and Interval Width
 
 To illustrate how the Clopper–Pearson interval behaves compared to other intervals (e.g., Wald, Wilso), I run a quick simulation in R. It works like following:
 
@@ -271,7 +336,7 @@ Another simulation we can do is to **measure coverage across different sample si
 As shown with simulated data, Clopper–Pearson remains at or above 95% coverage (reflecting its “exact” nature), while Wald intervals can dip below 95% for smaller sample sizes. Seeing how both curves evolve as $$n$$ grows helps us understand the **trade-off** between accuracy and interval width for each method.
 
 <details>
-<summary>R Code for Coverge vs. n - Click to Expand</summary>
+<summary>R Code for Coverage vs. n - Click to Expand</summary>
 
 {% highlight r %}
 library(binom)
@@ -346,8 +411,8 @@ Mathematically, $$ k $$ follows a **Beta-Binomial** distribution. From a purely 
 
 #### Frequentist Interpretation
 
-- **Parameter Estimation**: One can use likelihood-based methods (e.g., maximum likelihood estimation) to fit the Beta-Binomial model. Here, you do not treat $$ p $$ as a random variable in the Bayesian sense, but you do acknowledge that each sampled unit (or group) may have a different “true” $$ p $$.  
-- **Over-Dispersion**: If a simple binomial model does not capture all the variability in your data—for example, if you see a higher spread in the number of successes than the binomial assumption would predict—fitting a Beta-Binomial model can account for that extra variability without moving to a fully Bayesian framework.
+- **Parameter Estimation**: One can use likelihood-based methods (e.g., maximum likelihood estimation) to fit the Beta-Binomial model. Here, we do not treat $$ p $$ as a random variable in the Bayesian sense, but we do acknowledge that each sampled unit (or group) may have a different “true” $$ p $$.  
+- **Over-Dispersion**: If a simple binomial model does not capture all the variability in our data—for example, if we see a higher spread in the number of successes than the binomial assumption would predict—fitting a Beta-Binomial model can account for that extra variability without moving to a fully Bayesian framework.
 
 #### Common Use Cases
 
@@ -369,14 +434,4 @@ Mathematically, $$ k $$ follows a **Beta-Binomial** distribution. From a purely 
   - In both the Clopper–Pearson and Beta-Binomial contexts, the Beta distribution provides the “shape” governing how proportions or probabilities vary.  
   - Even outside Bayesian methods, it remains a fundamental building block in understanding binomial variability and constructing exact inference procedures.
 
----
-
-### Summary
-
-In summary, **the Beta distribution plays a central role in frequentist statistics** when dealing with binomial or proportion data:
-
-1. **Exact Confidence Intervals**: The Clopper–Pearson interval inverts a binomial test via the Beta CDF and is often used when exact coverage is required.  
-2. **Beta-Binomial Model**: Over-dispersion in binomial data can be addressed by modeling $$ p $$ as a draw from a Beta distribution. Parameters $$ \alpha $$ and $$ \beta $$ can then be estimated with frequentist methods, providing a better fit for data that violate the assumptions of a simple binomial model.
-
-By recognizing these connections, you’ll see the Beta distribution is not solely a Bayesian tool—it underpins a variety of frequentist approaches to inference about probabilities and proportions, whether through confidence intervals or extended binomial models that capture extra variability.
 
