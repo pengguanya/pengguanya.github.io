@@ -7,7 +7,7 @@ tags: [statistics, beta-distribution, beysian-statistics]
 math: true
 ---
 
-This post kicks off a series on the Beta distribution, a versatile probability distribution often used in statistics and machine learning. In this first part, I will develop an intuitive understanding of the Beta distribution and examine its fundamental properties.
+This post kicks off a series on the Beta distribution, a versatile probability distribution often used in statistics and machine learning. In this first part, I will develop an intuitive understanding of the Beta distribution and examine its fundamental properties under a Bayesian setting.
 
 ## General Properties of the Beta Distribution
 
@@ -110,7 +110,7 @@ This updated belief logically falls between the **prior** mean (20%) and the **n
 
 ## Iterative (Online) Updating with the Beta Distribution
 
-The Beta distribution, as a conjugate prior to the Binomial and Bernoulli distributions, is ideal for iterative updating when data arrives in batches. When modeling a Bernoulli process with a Beta prior, each new set of observations updates the posterior, which then becomes the new prior for subsequent data.
+In a Bayesian framework, the Beta distribution’s conjugate properties make it ideal for iterative updating, simplifying computations when data arrives in batches. In a Bernoulli process, each new set of observations updates the Beta posterior, which seamlessly becomes the prior for subsequent data, enabling efficient step-by-step refinement.
 
 ### How It Works
 
@@ -191,3 +191,6 @@ legend("topleft", legend = legend_labels,
 - **Colored curves** show updated posteriors as more data arrives.
 - The dashed vertical line at $$p_{\text{true}} = 0.7$$ highlights how the posterior concentrates around the true value over time.
 
+## Summary
+
+The Beta distribution models probabilities and proportions using two parameters, $$ \alpha $$ and $$ \beta $$ making it flexible to adjust. It is widely used in Bayesian inference as a conjugate prior for Bernoulli and Binomial data, allowing easy updates with new observations. This post introduced its key properties, intuition, and role in Bayesian framework.
