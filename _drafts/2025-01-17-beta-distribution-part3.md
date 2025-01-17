@@ -186,7 +186,7 @@ Consider a survey measuring customer satisfaction on a scale from 0 to 1, involv
 
 This setup results in multimodal data that cannot be adequately modeled by a single Beta distribution. In this simulation, I mimic such real-world survey data and apply a Mixed Beta Model to accurately capture the distinct patterns of each group while providing an overall fit and compare it with a standard beta model.
 
-The model is fit using EM-Algoirthm by maximizing the likelihood of the data iteratively.
+The model is fit using [EM-Algoirthm](https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm) by maximizing the likelihood of the data iteratively.
 
 {::options parse_block_html="true" /}
 <details><summary markdown="span">R Code for Mixed Beta Model Simulation - Click to Expand</summary>
