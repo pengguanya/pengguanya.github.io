@@ -5,9 +5,6 @@ author: peng
 categories: [Blogging, DataScience]
 tags: [statistics, beta-distribution, beysian-statistics]
 math: true
-image:
-  path: assets/headers/
-  alt: Beta Distribution
 ---
 
 This post kicks off a series on the Beta distribution, a versatile probability distribution often used in statistics and machine learning. In this first part, I will develop an intuitive understanding of the Beta distribution and examine its fundamental properties.
@@ -109,11 +106,11 @@ $$
 
 This updated belief logically falls between the **prior** mean (20%) and the **naive** sample estimate of 50%.
 
-<img src="assets/img/2025-01-14-beta-distribution-part1/prior_vs_posterior.png" alt="Prior vs. Posterior" style="display: block; margin: 0 auto; width: 80%; height: auto;">
+<img src="assets/img/2025-01-14-beta-distribution-part1/prior_vs_posterior.png" alt="Prior vs. Posterior" style="display: block; margin: 0 auto; width: 70%; height: auto;">
 
-## Iterative (Online) Updating
+## Iterative (Online) Updating with the Beta Distribution
 
-One of the most powerful features of Bayesian methods is **iterative (or online) updating**. In reality, data often arrives in batches over time, rather than all at once. When modeling a Bernoulli process with a Beta prior, each new set of observations updates the posterior, which then becomes the new prior for subsequent data.
+The Beta distribution, as a conjugate prior to the Binomial and Bernoulli distributions, is ideal for iterative updating when data arrives in batches. When modeling a Bernoulli process with a Beta prior, each new set of observations updates the posterior, which then becomes the new prior for subsequent data.
 
 ### How It Works
 
@@ -196,7 +193,7 @@ legend("topleft", legend = legend_labels,
 
 ## Extensions of the Beta Distribution
 
-While the Beta distribution is versatile for modeling probabilities and proportions, there are cases where more flexibility is needed. In these scenarios, we turn to extensions such as the **Beta Prime distribution** and the **Extended Beta distribution**. These extensions provide additional flexibility for modeling various types of data.
+While the Beta distribution is versatile for modeling probabilities and proportions, there are cases where more flexibility is needed. In these scenarios, we turn to extensions such as the **Beta Prime distribution** and the various of extended Beta distributions. These extensions provide additional flexibility for modeling various types of data.
 
 ### Beta and Gamma Distributions
 
@@ -313,11 +310,11 @@ legend("topright", legend = c("Simulated X", "Theoretical Beta Prime"),
 <img src="assets/img/2025-01-14-beta-distribution-part1/Beta_prime_distribution.png" alt="Beta Prime Simulation" style="display: block; margin: 0 auto; width: 80%; height: auto;">
 
 
-## Generalized Extensions of the Beta Distribution
+### Generalized Extensions of the Beta Distribution
 
 There are various ways to extend the Beta distribution to suit different modeling needs. Extensions typically introduce additional parameters or modify the functional form to provide greater flexibility for skewness, kurtosis, or tail behavior. These generalizations can adapt the Beta distribution to fit more complex data patterns. Below are some examples.
 
-### Generalized Beta Distribution (Type I)
+#### Generalized Beta Distribution (Type I)
 
 **Form:**
 
@@ -330,7 +327,7 @@ $$
 - The $$x^\delta$$ term adds flexibility to adjust skewness and kurtosis.
 - Useful for modeling asymmetric data or data with sharp peaks, allowing for fine-tuned control over the shape of the distribution.
 
-### Kumaraswamy Distribution
+#### Kumaraswamy Distribution
 
 **Form:**
 
@@ -345,7 +342,7 @@ $$
 
 This combination of simplicity and flexibility makes it highly practical for modeling bounded data, such as proportions or probabilities.
 
-### Mixed Beta Model
+#### Mixed Beta Model
 
 The **Mixed Beta Model** combines multiple Beta distributions to capture data with multimodality or heterogeneous subpopulations. Instead of assuming all data points come from a single Beta distribution, a mixture model allows different subsets of data to follow distinct Beta distributions.
 
@@ -366,7 +363,7 @@ where:
 
 and there are many more extensions and variations of the Beta distribution that can be tailored to specific data characteristics and modeling requirements.
 
-### Simulation Example: Mixed Survey Data
+#### Simulation Example: Mixed Survey Data
 
 Consider a survey measuring customer satisfaction on a scale from 0 to 1, involving two distinct groups:
 
@@ -482,6 +479,3 @@ ggplot(data = data.frame(x = data), aes(x = x)) +
 <img src="assets/img/2025-01-14-beta-distribution-part1/Mixed_Beta_Model.png" alt="Mixed Beta Model" style="display: block; margin: 0 auto; width: 80%; height: auto;">
 
 The plot shows the single Beta model fails to capture the distinct peaks in the data, while the Mixed Beta Model accurately separates new and loyal customers. This highlights the mixed model's ability to handle multimodal data.
-
-
-
