@@ -48,7 +48,7 @@ $$
 
 ![Shape of the Curves of Beta Distribution](assets/img/2025-01-14-beta-distribution-part1/Beta_curve_bell_vs_u.png)
 
-We can also evaluate the **mean (expected value)** of the Beta distribution, which helps us interpret its shape and deepen our quantitative understanding of how $$\alpha$$ and $$\beta$$ influence the distribution:
+We can also evaluate the **mean (expected value)** of the Beta distribution, which helps us interpret its shape and understand how $$\alpha$$ and $$\beta$$ influence the distribution:
 
 $$ 
 \begin{align*}
@@ -64,9 +64,9 @@ This shows that:
 
 Hence, when $$\alpha$$ is much larger than $$\beta$$, the distribution concentrates near 1, and vice versa.
 
-## Beta as a Conjugate Prior in Bayesian Inference
+### Beta as a Conjugate Prior in Bayesian Inference
 
-A key feature of the Beta distribution is that it serves as a **conjugate prior** for the Bernoulli, binomial, and other distributions in the exponential family. Conjugacy means that if we start with a Beta prior for a parameter $$p$$ (probability of success) and observe binomial data, the **posterior** for $$p$$ will also be a Beta distribution—just with updated parameters.
+The Beta distribution is a **conjugate prior** for the Bernoulli, Binomial, and other distributions in the exponential family. This means that if we start with a Beta distribution as the prior for a parameter $$p$$ (the probability of success), and then observe Binomial data (the likelihood of the data given $$p$$), the **posterior** distribution of $$p$$ will also be a Beta distribution, but with updated parameters reflecting the new data.
 
 ### Conjugacy with the Bernoulli/Binomial Likelihood
 
