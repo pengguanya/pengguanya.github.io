@@ -11,7 +11,7 @@ This post kicks off a series on the Beta distribution, a versatile probability d
 
 ## General Properties of the Beta Distribution
 
-The Beta distribution is defined on the interval $$[0,1]$$. This makes it particularly convenient for modeling quantities naturally constrained between 0 and 1—such as probabilities and proportions. It is governed by two **shape parameters**, $$\alpha$$ and $$\beta$$, which determine how the distribution is skewed:
+The Beta distribution is defined on the interval $$[0,1]$$. This makes it particularly convenient for modeling quantities naturally constrained between 0 and 1—such as probabilities and proportions. It is governed by two shape parameters, $$\alpha$$ and $$\beta$$, which determine how the distribution is skewed:
 
 - $$\alpha$$: Determines how heavily the distribution is weighted toward “success.”
 - $$\beta$$: Determines how heavily the distribution is weighted toward “failure.”
