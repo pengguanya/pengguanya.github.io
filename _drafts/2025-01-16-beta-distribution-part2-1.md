@@ -13,7 +13,7 @@ In my previous post, I have discussed the basic properties of the Beta distribut
 
 In this first part (Part 2.1), I will focus on one specific application of Clopper–Pearson confidence intervals for proportions, which directly leverages the Beta distribution to ensure exact coverage. My goal however is not about specific application, but to provide a deeper understanding and intuition behind the Beta distribution. With this intuition and deep insight, it helps me to connect the dots between different statistical methods and concepts, and to appreciate the underlying principles that drive these methods.
 
-### Confidence Intervals for Proportions (Clopper–Pearson)
+## Confidence Intervals for Proportions (Clopper–Pearson)
 
 When we observe a binomial outcome—say, $$ k $$ successes out of $$ n $$ trials—the most straightforward estimate of the underlying probability of success $$ p $$ is the sample proportion $$ \hat{p} = k/n $$. Constructing a confidence interval for $$ p $$ can be done in various ways, including the **Wald interval**, **Wilson interval**, and others. However, one of the classic “exact” methods is the **Clopper–Pearson interval**, which directly leverages the Beta distribution.
 
@@ -45,9 +45,9 @@ $$ \mathrm{BetaInv}\bigl(p; \alpha, \beta\bigr) $$ denotes the **inverse** of th
 
 The Clopper–Pearson interval is considered “exact” in the sense that the coverage probability is guaranteed to be at least $$ (1 - \alpha) $$ for every possible true $$ p $$. This comes at the cost of sometimes being more conservative (wider) than other approximate intervals (e.g., the Wilson interval).
 
-### Relationship to the Beta Distribution
+## Relationship to the Beta Distribution
 
-#### 1. Binomial Cumulative Probabilities
+### 1. Binomial Cumulative Probabilities
 
 Given a Binomial $$(n, p)$$  random variable  $$X$$ , the probability of seeing *up to*  $$k$$  successes is
 
@@ -57,7 +57,7 @@ $$
 
 In the **Clopper–Pearson** method, we want to find the values of  $$p$$  (the true success probability) for which observing  $$k$$  successes is *not too surprising*. Concretely, we ensure  $$p$$  satisfies a chosen significance threshold ( $$\alpha$$ ) on both the lower and upper tails.
 
-#### 2. Constructing the Interval by “Slicing”
+### 2. Constructing the Interval by “Slicing”
 
 To build a confidence interval, we solve for  $$p_{\text{lower}}$$  and  $$p_{\text{upper}}$$  such that:
 
@@ -78,7 +78,7 @@ $$
 
 This value tells us how likely it is to see  $$k$$  or fewer successes if  $$p$$  were the true success rate. In **Clopper–Pearson**, we identify precisely which  $$p$$ -values make that cumulative probability match our chosen cutoffs ($$\alpha/2$$  for the lower tail,  $$1-\alpha/2$$  for the upper tail). By “slicing” the binomial distribution *exactly* at these points, we form the boundaries of our confidence interval—no normal approximation required—leading to “exact” coverage in repeated sampling.
 
-#### 3. From Binomial Sums to the Incomplete Beta Function
+### 3. From Binomial Sums to the Incomplete Beta Function
 
 A key step is recognizing that:
 
@@ -105,7 +105,7 @@ $$
 I_{p}(k + 1,\, n - k) = 1 - \frac{\alpha}{2} \quad \text{or} \quad \mathbb{P}\left(p > p_{\text{lower}} \,\mid \, p \sim \text{Beta}(k+1, n-k)\right) = \frac{\alpha}{2}
 $$
 
-#### 4. Why the Beta Distribution?
+### 4. Why the Beta Distribution?
 
 Binomial expressions contain terms like  $$p^{k}(1-p)^{n-k}$$ . When we integrate or “accumulate” these terms over  $$[0,1]$$ , we naturally arrive at the Beta family of functions as discussed above. In the Bayesian context we discused previously, this is often described as “conjugacy” but even in a frequentist procedure like Clopper–Pearson, the same Beta integrals emerge once we:
 
@@ -116,7 +116,7 @@ Hence, the Beta distribution acts as a continuous bridge between discrete binomi
 
 In short, integrating binomial probabilities leads us to Beta functions; inverting those Beta integrals produces the interval bounds. This tight connection is what powers the Clopper–Pearson interval—ensuring it captures the true  $$p$$  at least  $$(1 - \alpha) \times 100\%$$  of the time, *no matter* the sample size or the true  $$p$$ .
 
-### Simulation: Overall Coverage and Interval Width
+## Simulation: Overall Coverage and Interval Width
 
 To illustrate how the Clopper–Pearson interval behaves compared to other intervals (e.g., Wald, Wilso), I run a quick simulation in R. It works like following:
 
@@ -201,7 +201,7 @@ ggplot(df_widths, aes(x = Width, fill = Method)) +
 
 <img src="assets/img/2025-01-14-beta-distribution-part1/Interval_width_Clopper_vs_Wald.png" alt="Distribution of Interval Width" style="display: block; margin: 0 auto; width: 80%; height: auto;">
 
-### Simulation: Coverage vs. Sample Size
+## Simulation: Coverage vs. Sample Size
 
 Another simulation we can do is to measure coverage across different sample sizes. To do this, I fix a true probability of success, say $$p_{\text{true}} = 0.3$$, and vary $$n$$ (for example, $5, 10, 30, 50, 100, 500$). For each value of $$n$$, I simulate a large number of binomial experiments, compute both Clopper–Pearson and Wald confidence intervals, and then calculate how often these intervals contain the true $$p_{\text{true}}$$. By plotting coverage against the sample size $$n$$, we can visualize how each method performs as we collect more data.
 
