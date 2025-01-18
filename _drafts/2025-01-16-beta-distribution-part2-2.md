@@ -1,13 +1,10 @@
 ---
 title: "Beta Distribution: Part 2 - Frequentist Perspectives"
-date: 2025-01-20
+date: 2025-01-16
 author: peng
 categories: [Blogging, DataScience]
 tags: [statistics, beta-distribution, freqeuntist-statistics]
 math: true
-image:
-  path: assets/headers/
-  alt: Beta Distribution
 ---
 
 ## Beta Distribution in Frequentist Inference
@@ -301,19 +298,154 @@ Mathematically, $$ k $$ follows a **Beta-Binomial** distribution. From a purely 
 - **Group-Level Variation**: In clinical trials or manufacturing quality checks, each batch (group) may have its own success probability. Modeling that “batch effect” with Beta-Binomial can improve goodness-of-fit.  
 - **Count Data with Extra Variance**: Any scenario where the binomial model systematically underestimates variance can be tested against a Beta-Binomial alternative.
 
+### Case Study: Grouop-Level Variation and Over-Dispersion in Clinical Trials - An Application of Beta-Binomial Model
 
-### Practical Tips and Software
+In clinical trials, we often measure the **response rate** (success probability) across multiple sites or groups. A key assumption of the **binomial model** is that the success probability ($$p$$) is constant across all sites. However, in real-world settings, this assumption is frequently violated due to:
 
-- **R Functions**:  
-  - `binom::binom.confint()` in R offers multiple methods for confidence intervals of proportions, including Clopper–Pearson.  
-  - The **Beta-Binomial** model can be fit in R via packages like `VGAM` (function `vglm()` with family `betabinomial`).
+1. **Site-to-Site Variability**: Differences in patient demographics, site protocols, or environmental factors.
+2. **Unobserved Heterogeneity**: Factors influencing $$p$$ that are not explicitly measured or modeled.
 
-- **Python**:  
-  - Statsmodels and other libraries offer “exact” binomial intervals.  
-  - For Beta-Binomial modeling, one can use `scipy.stats.betabinom` for probability mass function (PMF) and cumulative distribution function (CDF) calculations, though advanced fitting functions may require additional libraries or custom coding.
+This variability leads to **over-dispersion**, where the observed variance in success rates exceeds what is predicted under a simple binomial model. The **Beta-Binomial model** accounts for this variability by allowing the success probability $$p$$ to vary across groups according to a **Beta distribution**.
 
-- **Interpretation**:  
-  - In both the Clopper–Pearson and Beta-Binomial contexts, the Beta distribution provides the “shape” governing how proportions or probabilities vary.  
-  - Even outside Bayesian methods, it remains a fundamental building block in understanding binomial variability and constructing exact inference procedures.
+---
+
+### The Model: Connecting Beta and Binomial
+
+#### Two-Stage Process
+
+1. **Stage 1**: Each site's success probability $$p_i$$ is drawn from a Beta distribution:
+   $$
+   p_i \sim \text{Beta}(\alpha, \beta),
+   $$
+   where $$\alpha$$ and $$\beta$$ are shape parameters controlling the mean and variability of $$p$$.
+
+2. **Stage 2**: Given $$p_i$$, the number of successes $$Y_i$$ at site $$i$$ follows a Binomial distribution:
+   $$
+   Y_i \mid p_i \sim \text{Binomial}(n, p_i),
+   $$
+   where $$n$$ is the number of trials (e.g., patients) at each site.
+
+#### Variance Inflation and Over-Dispersion
+
+The marginal distribution of $$Y_i$$ (after integrating out $$p$$) is **Beta-Binomial**:
+$$
+P(Y_i = k) = \binom{n}{k} \frac{B(k + \alpha, n - k + \beta)}{B(\alpha, \beta)},
+$$
+where $$B(\alpha, \beta)$$ is the Beta function.
+
+The variance of $$Y_i$$ under the Beta-Binomial model is:
+$$
+\text{Var}(Y_i) = n \cdot \mu \cdot (1 - \mu) \cdot \left(1 + \frac{n - 1}{\alpha + \beta + 1}\right),
+$$
+where:
+- $$\mu = \frac{\alpha}{\alpha + \beta}$$ is the mean of the Beta distribution.
+- The term $$\frac{n - 1}{\alpha + \beta + 1}$$ accounts for variability in $$p$$, inflating the variance compared to the Binomial model.
+
+In contrast, the variance of $$Y_i$$ under the Binomial model is:
+$$
+\text{Var}_{\text{Binomial}}(Y_i) = n \cdot \mu \cdot (1 - \mu).
+$$
+
+The **over-dispersion factor** quantifies the additional variability:
+$$
+\text{OD} = \frac{\text{Var}_{\text{Beta-Binomial}}(Y_i)}{\text{Var}_{\text{Binomial}}(Y_i)} = 1 + \frac{n - 1}{\alpha + \beta + 1}.
+$$
+
+---
+
+### Simulation: Site-Level Response Rates in Clinical Trials
+
+#### Scenario
+
+We simulate a clinical trial with:
+- $$n = 20$$ patients per site.
+- $$30$$ sites.
+- Success probabilities ($$p_i$$) varying across sites, drawn from $$\text{Beta}(\alpha = 2, \beta = 5)$$.
+
+We compare:
+1. **Binomial Model**: Assumes a constant $$p$$ (mean of the Beta distribution).
+2. **Beta-Binomial Model**: Incorporates variability in $$p$$ across sites.
+
+---
+
+#### R Code for Simulation
+
+```r
+library(VGAM)
+library(ggplot2)
+
+# Parameters
+n_patients <- 20  # Patients per site
+n_sites <- 30     # Number of sites
+alpha <- 2        # Beta shape parameter 1
+beta <- 5         # Beta shape parameter 2
+
+# Simulate site-specific probabilities from Beta distribution
+site_probs <- rbeta(n_sites, shape1 = alpha, shape2 = beta)
+
+# Generate response counts per site using Binomial and Beta-Binomial models
+binomial_counts <- rbinom(n_sites, size = n_patients, prob = mean(site_probs))
+beta_binomial_counts <- sapply(site_probs, function(p) rbinom(1, size = n_patients, prob = p))
+
+# Variance comparison
+binom_var <- var(binomial_counts)
+beta_binom_var <- var(beta_binomial_counts)
+
+cat("Variance (Binomial):", binom_var, "\n")
+cat("Variance (Beta-Binomial):", beta_binom_var, "\n")
+
+# Plot: Response counts across sites
+df <- data.frame(
+  Site = rep(1:n_sites, 2),
+  Responses = c(binomial_counts, beta_binomial_counts),
+  Model = rep(c("Binomial", "Beta-Binomial"), each = n_sites)
+)
+
+ggplot(df, aes(x = factor(Site), y = Responses, fill = Model)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Response Counts Across Sites",
+       x = "Site",
+       y = "Number of Responses",
+       fill = "Model") +
+  theme_minimal()
+
+# Plot: Variability in site-specific probabilities
+beta_df <- data.frame(p = site_probs)
+ggplot(beta_df, aes(x = p)) +
+  geom_histogram(bins = 15, fill = "blue", alpha = 0.6) +
+  labs(title = "Site-Specific Response Probabilities (Beta Distribution)",
+       x = "Probability of Response (p)",
+       y = "Frequency") +
+  theme_minimal()
+```
+
+---
+
+#### Insights from Simulation
+
+1. **Variance Inflation**:
+   - The variance of Beta-Binomial response counts is significantly higher than that of the Binomial model, reflecting the impact of site-to-site variability:
+     $$
+     \text{OD} = 1 + \frac{n - 1}{\alpha + \beta + 1}.
+     $$
+     For $$\alpha = 2, \beta = 5, n = 20$$, $$\text{OD} = 3.375$$.
+
+2. **Heterogeneity in $$p$$**:
+   - The histogram of $$p$$ (Beta distribution) illustrates how site-specific variability influences the response probabilities. Sites with higher $$p$$ produce more successes, while those with lower $$p$$ produce fewer, contributing to over-dispersion.
+
+3. **Real-World Implications**:
+   - Ignoring over-dispersion (by assuming a constant $$p$$) underestimates the variance, leading to overconfident conclusions about treatment effects.
+   - The Beta-Binomial model captures this variability, improving model fit and inference.
+
+---
+
+### Takeaways
+
+1. The **Beta-Binomial model** provides a robust framework to account for over-dispersion in clinical trials caused by unobserved heterogeneity.
+2. By allowing $$p$$ to vary across sites, it captures real-world variability, leading to more realistic uncertainty quantification.
+3. Simulations not only validate theoretical insights but also help visualize the practical impact of using the Beta-Binomial model over the Binomial model.
+
+This example ties back to the **Beta distribution’s role in frequentist inference**, showcasing its power to address challenges in real-world data analysis.
+
 
 
