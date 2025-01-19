@@ -164,6 +164,7 @@ for (i in 1:n_iterations) {
   beta_seq[i + 1]  <- beta_curr
 }
 
+x <- seq(0, 1, length.out = 500)
 densities <- sapply(1:length(alpha_seq), function(i) dbeta(x, alpha_seq[i], beta_seq[i]))
 colors <- c("black", "red", "blue", "green", "purple", "orange")
 
