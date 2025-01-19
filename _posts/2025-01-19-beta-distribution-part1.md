@@ -104,7 +104,7 @@ $$
 \frac{\alpha_1}{\alpha_1 + \beta_1} = \frac{7}{7+13} = \frac{7}{20} = 0.35 \quad (35\%).
 $$
 
-This updated belief logically falls between the **prior** mean (20%) and the **naive** sample estimate of 50%.
+This updated belief logically falls between the **prior** mean ($$ 20\% $$) and the **naive** sample estimate of $$ 50\% $$.
 
 <img src="assets/img/2025-01-14-beta-distribution-part1/prior_vs_posterior.png" alt="Prior vs. Posterior" style="display: block; margin: 0 auto; width: 70%; height: auto;">
 
