@@ -1,6 +1,6 @@
 ---
 title: "Beta Distribution: Part 1 - Intuition and Properties"
-date: 2025-01-14
+date: 2025-01-19
 author: peng
 categories: [Blogging, DataScience]
 tags: [statistics, beta-distribution, beysian-statistics]
@@ -104,7 +104,7 @@ $$
 \frac{\alpha_1}{\alpha_1 + \beta_1} = \frac{7}{7+13} = \frac{7}{20} = 0.35 \quad (35\%).
 $$
 
-This updated belief logically falls between the **prior** mean (20%) and the **naive** sample estimate of 50%.
+This updated belief logically falls between the **prior** mean ($$ 20\% $$) and the **naive** sample estimate of $$ 50\% $$.
 
 <img src="assets/img/2025-01-14-beta-distribution-part1/prior_vs_posterior.png" alt="Prior vs. Posterior" style="display: block; margin: 0 auto; width: 70%; height: auto;">
 
@@ -164,6 +164,7 @@ for (i in 1:n_iterations) {
   beta_seq[i + 1]  <- beta_curr
 }
 
+x <- seq(0, 1, length.out = 500)
 densities <- sapply(1:length(alpha_seq), function(i) dbeta(x, alpha_seq[i], beta_seq[i]))
 colors <- c("black", "red", "blue", "green", "purple", "orange")
 

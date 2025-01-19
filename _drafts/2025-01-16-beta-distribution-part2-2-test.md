@@ -7,31 +7,24 @@ tags: [statistics, beta-distribution]
 math: true
 ---
 
-In a previous post, I explored the Beta distribution from a frequentist perspective, focusing on its role in constructing exact confidence intervals for binomial proportions. This post delves deeper into the frequentist applications of the Beta distribution, particularly in addressing **over-dispersion** and **group-level variation**. We introduce the **Beta-Binomial model**, a two-stage process that accounts for variability in success probabilities across groups, and examine its implications in real-world scenarios like clinical research.
+In previous post, I have explored the Beta distribution from a frequentist perspective, focusing on its role in constructing exact confidence intervals for binomial proportions. In this post, I delve deeper into the frequentist applications of the Beta distribution, particularly in the context of **over-dispersion** and **group-level variation**. We introduce the **Beta-Binomial model**, a two-stage process that accounts for variability in success probabilities across groups, and discuss its implications in clinical trials and other real-world scenarios. 
 
 ### Beta-Binomial Model for Over-Dispersion
 
-The **Beta-Binomial model** extends the simple binomial framework by incorporating **over-dispersion**—a phenomenon where the observed variance exceeds what is expected under a standard binomial model. This is achieved through a two-stage process:
+Another area where the Beta distribution shows up in frequentist analysis is the **Beta-Binomial model**, which can be thought of as a “two-stage” binomial process that introduces **over-dispersion**—a phenomenon where observed variance is higher than expected under a simple binomial assumption.
+
 
 #### The Two-Stage Process
-1. Draw a probability $$p$$ from a Beta distribution:
-   $$
-   p \sim \text{Beta}(\alpha, \beta),
-   $$
-   where $$\alpha$$ and $$\beta$$ are the shape parameters.
-2. Given $$p$$, generate $$k$$ successes out of $$n$$ trials from a binomial distribution:
-   $$
-   k \mid p \sim \text{Binomial}(n, p).
-   $$
 
-The resulting marginal distribution of $$k$$ follows a **Beta-Binomial** distribution. We treat $$ \alpha $$ and $$ \beta $$ as model parameters that account for unobserved heterogeneity in the probability $$ p $$. This effectively inflates the variance of $$ k $$ relative to a simple $$ \mathrm{Binomial}(n, p) $$ model.
+1. Draw a probability $$ p $$ from a Beta distribution, say $$ \mathrm{Beta}(\alpha, \beta) $$.
+2. Given that $$ p $$, generate $$ k $$ successes out of $$ n $$ trials from a binomial distribution $$ \mathrm{Binomial}(n, p) $$.
+
+Mathematically, $$ k $$ follows a **Beta-Binomial** distribution. From a purely frequentist standpoint, we treat $$ \alpha $$ and $$ \beta $$ as model parameters that account for unobserved heterogeneity in the probability $$ p $$. This effectively inflates the variance of $$ k $$ relative to a simple $$ \mathrm{Binomial}(n, p) $$ model.
 
 #### Frequentist Interpretation
 
-From a frequentist perspective, the Beta-Binomial model allows for variability in the success probability $$p$$ across groups without assuming $$p$$ is a random variable (as in Bayesian frameworks). Key aspects include:
-
-- **Parameter Estimation**: One can use likelihood-based methods (e.g., maximum likelihood estimation) to fit the Beta-Binomial model. Here, we do not treat $$ p $$ as a random variable in the Bayesian sense, but we do acknowledge that each sampled unit (or group) may have a different “true” $$ p $$.  
-- **Over-Dispersion**: The model adjusts for variability not captured by the binomial model, offering a better fit when data exhibit higher variance than expected.
+- **Parameter Estimation: One can use likelihood-based methods (e.g., maximum likelihood estimation) to fit the Beta-Binomial model. Here, we do not treat $$ p $$ as a random variable in the Bayesian sense, but we do acknowledge that each sampled unit (or group) may have a different “true” $$ p $$.  
+- **Over-Dispersion**: If a simple binomial model does not capture all the variability in our data—for example, if we see a higher spread in the number of successes than the binomial assumption would predict—fitting a Beta-Binomial model can account for that extra variability without moving to a fully Bayesian framework.
 
 #### Common Use Cases
 
@@ -47,7 +40,11 @@ In clinical trials, we often measure the response rate (success probability) acr
 
 This variability leads to **over-dispersion**, where the observed variance in success rates exceeds what is predicted under a simple binomial model. The **Beta-Binomial model** accounts for this variability by allowing the success probability $$p$$ to vary across groups according to a Beta distribution.
 
-#### The Model: Two-Stage Process
+---
+
+### The Model: Connecting Beta and Binomial
+
+#### Two-Stage Process
 
 1. Each site's success probability $$p_i$$ is drawn from a Beta distribution:
    $$
@@ -89,7 +86,7 @@ $$
 
 ---
 
-#### Simulation: Site-Level Response Rates in Clinical Trials
+### Simulation: Site-Level Response Rates in Clinical Trials
 
 We simulate a clinical trial with:
 - $$n = 20$$ patients per site.
@@ -188,19 +185,13 @@ ggplot(beta_df, aes(x = p)) +
 
 ---
 
-### Summary
+### Takeaways
 
-The Beta distribution models the variability of success probabilities $$p$$ across groups, while the Beta-Binomial model accounts for over-dispersion by combining the Beta and Binomial distributions. This post demonstrates how the Beta-Binomial model inflates variance compared to a simple Binomial model, reflecting real-world heterogeneity in data. The shape parameters $$\alpha$$ and $$\beta$$ of the Beta distribution control the mean and variability of $$p$$, allowing for more accurate modeling of group-level variation and extra-binomial variability in frequentist contexts.
+1. The **Beta-Binomial model** provides a robust framework to account for over-dispersion in clinical trials caused by unobserved heterogeneity.
+2. By allowing $$p$$ to vary across sites, it captures real-world variability, leading to more realistic uncertainty quantification.
+3. Simulations not only validate theoretical insights but also help visualize the practical impact of using the Beta-Binomial model over the Binomial model.
 
-### References
+This example ties back to the **Beta distribution’s role in frequentist inference**, showcasing its power to address challenges in real-world data analysis.
 
-Key concepts and properties of the Beta-Binomial model are based on:
 
-- [Beta-binomial distribution](https://en.wikipedia.org/wiki/Beta-binomial_distribution) - Wikipedia
-- [Chapter 3: The Beta-Binomial Bayesian Model - STAT 535 Lecture Notes](https://people.stat.sc.edu/Hitchcock/stat535slides3BRBhandout.pdf) by **David B. Hitchcock** (2022) - University of South Carolina
 
-The discussion on over-dispersion and simulation is inspired by:  
-
-- [Simulate data from the beta-binomial distribution in SAS](https://blogs.sas.com/content/iml/2017/11/20/simulate-beta-binomial-sas.html) by **Rick Wicklin** (2017) - The DO Loop blog
-- [Everything You Don't Need to Know About Variance Inflation Factors](https://www.blasbenito.com/post/variance-inflation-factor/) by **Blas M. Benito, PhD** - blasbenito.com
-- [Dispersion and binomial vs beta-binomial](https://discourse.mc-stan.org/t/dispersion-and-binomial-vs-beta-binomial/29879) by **adamConnerSax, et al.** (2022) - The Stan Forums
