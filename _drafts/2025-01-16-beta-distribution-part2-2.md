@@ -192,7 +192,7 @@ ggplot(beta_df, aes(x = p)) +
 
 The Beta distribution models the variability of success probabilities $$p$$ across groups, while the Beta-Binomial model accounts for over-dispersion by combining the Beta and Binomial distributions. This post demonstrates how the Beta-Binomial model inflates variance compared to a simple Binomial model, reflecting real-world heterogeneity in data. The shape parameters $$\alpha$$ and $$\beta$$ of the Beta distribution control the mean and variability of $$p$$, allowing for more accurate modeling of group-level variation and extra-binomial variability in frequentist contexts.
 
-### Sources and References
+### References
 
 Key concepts and properties of the Beta-Binomial model are based on:
 
