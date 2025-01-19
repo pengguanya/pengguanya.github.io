@@ -9,27 +9,27 @@ math: true
 
 ## Beta Distribution in Frequentist Inference
 
-In my previous post, I have discussed the basic properties of the Beta distribution and its role in Bayesian statistics. In this post, I will delve into the **frequentist** side of the Beta distribution, exploring how it appears in classical statistical methods and inference procedures such as constructing confidence intervals and estimation. 
+In my previous post, I explored the basic properties of the Beta distribution and its role in Bayesian statistics. In this post, I shift focus to the **frequentist** perspective, examining how the Beta distribution appears in classical statistical methods like estimation and confidence interval construction.
 
-In this first part (Part 2.1), I will focus on one specific application of Clopper–Pearson confidence intervals for proportions, which directly leverages the Beta distribution to ensure exact coverage. My goal however is not about specific application, but to provide a deeper understanding and intuition behind the Beta distribution. With this intuition and deep insight, it helps me to connect the dots between different statistical methods and concepts, and to appreciate the underlying principles that drive these methods.
+This installment (Part 2.1) focuses on the **Clopper–Pearson confidence intervals** for proportions, a method that directly leverages the Beta distribution to ensure exact coverage. Beyond this specific application, my aim is to build a deeper intuition for the Beta distribution, enabling connections between different statistical concepts and better understanding the principles underpinning these methods.
 
 ## Confidence Intervals for Proportions (Clopper–Pearson)
 
-When we observe a binomial outcome—say, $$ k $$ successes out of $$ n $$ trials—the most straightforward estimate of the underlying probability of success $$ p $$ is the sample proportion $$ \hat{p} = k/n $$. Constructing a confidence interval for $$ p $$ can be done in various ways, including the **Wald interval**, **Wilson interval**, and others. However, one of the classic “exact” methods is the **Clopper–Pearson interval**, which directly leverages the Beta distribution.
+When observing a binomial outcome, such as $$k$$ successes out of $$n$$ trials, the most straightforward estimate of the probability of success $$p$$ is the sample proportion $$\hat{p} = k / n$$. Constructing a confidence interval for $$p$$ can be done using various methods, including the **Wald interval**, **Wilson interval**, and others. Among these, the **Clopper–Pearson interval** is a classic “exact” method that directly incorporates the Beta distribution.
 
-Given observed data $$ (k, n) $$, the **Clopper–Pearson** $$ 100(1 - \alpha)\% $$ confidence interval for $$ p $$ is given by:
+Given observed data $$ (k, n) $$, the **Clopper–Pearson** $$ 100(1 - \alpha)\% $$ confidence interval for $$p$$ is defined as:
 
 $$
-\Bigl( p_{\text{lower}}, \; p_{\text{upper}} \Bigr),
+\Bigl( p_{\text{lower}}, \, p_{\text{upper}} \Bigr),
 $$
 
-where
+where:
 
 $$
 p_{\text{lower}} = 
 \begin{cases}
 0, & \text{if } k = 0, \\
-\mathrm{BetaInv}\bigl(\tfrac{\alpha}{2};\, k,\; n-k+1\bigr), & \text{if } 0 < k < n, \\
+\mathrm{BetaInv}\bigl(\tfrac{\alpha}{2};\, k,\; n-k+1\bigr), & \text{if } 0 < k < n,
 \end{cases}
 $$
 
@@ -37,101 +37,121 @@ $$
 p_{\text{upper}} = 
 \begin{cases}
 1, & \text{if } k = n, \\
-\mathrm{BetaInv}\bigl(1 - \tfrac{\alpha}{2};\, k+1,\; n-k\bigr), & \text{if } 0 < k < n, \\
+\mathrm{BetaInv}\bigl(1 - \tfrac{\alpha}{2};\, k+1,\; n-k\bigr), & \text{if } 0 < k < n.
 \end{cases}
 $$
 
-$$ \mathrm{BetaInv}\bigl(p; \alpha, \beta\bigr) $$ denotes the **inverse** of the cumulative distribution function (CDF) of the  $$ \mathrm{Beta}(\alpha, \beta) $$ distribution. In many statistical software packages, this is referred to as `qbeta()` or an equivalent function.
+Here, $$ \mathrm{BetaInv}(p; \alpha, \beta) $$ denotes the inverse of the cumulative distribution function (CDF) of the $$ \mathrm{Beta}(\alpha, \beta) $$ distribution, often implemented as `qbeta()` in statistical software.
 
-The Clopper–Pearson interval is considered “exact” in the sense that the coverage probability is guaranteed to be at least $$ (1 - \alpha) $$ for every possible true $$ p $$. This comes at the cost of sometimes being more conservative (wider) than other approximate intervals (e.g., the Wilson interval).
+The Clopper–Pearson interval guarantees exact coverage, meaning the true coverage probability is at least $$1 - \alpha$$ for every possible value of $$p$$. However, this guarantee often comes at the expense of conservatism, as these intervals can be wider than other methods such as the Wilson interval.
 
 ## Relationship to the Beta Distribution
 
 ### 1. Binomial Cumulative Probabilities
 
-Given a Binomial $$(n, p)$$  random variable  $$X$$ , the probability of seeing *up to*  $$k$$  successes is
+For a binomial random variable $$X \sim \text{Binomial}(n, p)$$, the probability of observing *up to* $$k$$ successes is:
 
 $$
-P(X \le k) \;=\; \sum_{i=0}^{k} \binom{n}{i}\, p^{i}\,(1 - p)^{n - i}.
+P(X \leq k) \;=\; \sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i}.
 $$
 
-In the **Clopper–Pearson** method, we want to find the values of  $$p$$  (the true success probability) for which observing  $$k$$  successes is *not too surprising*. Concretely, we ensure  $$p$$  satisfies a chosen significance threshold ( $$\alpha$$ ) on both the lower and upper tails.
+In the **Clopper–Pearson** method, the goal is to identify the range of $$p$$ values for which the observed outcome $$k$$ is not too surprising, based on a specified significance level $$\alpha$$. Specifically, the bounds $$p_{\text{lower}}$$ and $$p_{\text{upper}}$$ are determined such that the cumulative probabilities meet the thresholds $$\alpha/2$$ and $$1 - \alpha/2$$.
 
 ### 2. Constructing the Interval by “Slicing”
 
-To build a confidence interval, we solve for  $$p_{\text{lower}}$$  and  $$p_{\text{upper}}$$  such that:
+To construct the confidence interval, we solve for $$p_{\text{lower}}$$ and $$p_{\text{upper}}$$ such that:
 
-- The lower bound  $$p_{\text{lower}}$$  is where the cumulative probability  $$P(X \le k-1)$$  just hits  $$\alpha/2$$  (or similarly where  $$P(X \ge k)$$  is  $$\alpha/2$$ ).  
-- The upper bound  $$p_{\text{upper}}$$  is found by setting  $$P(X \le k)$$  equal to  $$1 - \alpha/2$$ .
+- $$p_{\text{lower}}$$ is the value where $$P(X \leq k-1)$$ equals $$\alpha/2$$ (or where $$P(X \geq k)$$ is $$\alpha/2$$).
+- $$p_{\text{upper}}$$ is the value where $$P(X \leq k)$$ equals $$1 - \alpha/2$$.
 
-Mathematically, we solve $p$ for:
-
-$$
-\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2} \quad \text{or} \quad \sum_{i=k}^{n} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2},
-$$
-
-Intuitively, imagine **scanning** through  $$p \in [0,1]$$ . For each candidate $$p$$ , we measure:
+Mathematically, we solve:
 
 $$
-\sum_{i=0}^{k} \binom{n}{i}\, p^{i}\,(1 - p)^{n - i}.
+\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2} \quad \text{or} \quad \sum_{i=k}^{n} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2}.
 $$
 
-This value tells us how likely it is to see  $$k$$  or fewer successes if  $$p$$  were the true success rate. In **Clopper–Pearson**, we identify precisely which  $$p$$ -values make that cumulative probability match our chosen cutoffs ($$\alpha/2$$  for the lower tail,  $$1-\alpha/2$$  for the upper tail). By “slicing” the binomial distribution *exactly* at these points, we form the boundaries of our confidence interval—no normal approximation required—leading to “exact” coverage in repeated sampling.
+Intuitively, this process involves “scanning” through $$p \in [0,1]$$ and calculating:
+
+$$
+\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i}.
+$$
+
+By pinpointing the values of $$p$$ that satisfy the cumulative probability thresholds, we determine the exact boundaries of the confidence interval without relying on approximations.
 
 ### 3. From Binomial Sums to the Incomplete Beta Function
 
-A key step is recognizing that:
+A key insight is that the cumulative sum of binomial probabilities can be rewritten in terms of the **regularized incomplete Beta function**. Recall that the cumulative binomial probability is:
 
 $$
-\sum_{i=0}^{k} \binom{n}{i}\, p^{i}\,(1 - p)^{n - i}
-\;=\;
-1 - I_{p}(k + 1,\, n - k),
+\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i}.
 $$
 
-where  $$I_{p}(\alpha,\beta)$$  is the **regularized incomplete Beta** function which is the CDF of Beta distribution, defined by
+Using properties of the Beta function, this can be expressed as:
 
 $$
-I_{p}(\alpha,\beta)
-\;=\;
-\frac{1}{B(\alpha,\beta)}
-\int_{0}^{p}
-t^{\alpha - 1}\,(1 - t)^{\beta - 1}\,dt,
+\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i} \;=\; 1 - I_p(k+1, n-k),
 $$
-and  $$B(\alpha,\beta)$$  is the complete Beta function. Essentially, summing binomial probabilities can be recast as integrating a function of the form  $$t^{\alpha-1}(1-t)^{\beta-1}$$ . This leads to the CDF of Beta distribution.   
 
-Therefore solving $p_{\text{lower}}$ for equation $$\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2}$$ is equivalent to solving a **Beta quantile** as for:
+where $$I_p(\alpha, \beta)$$ is the **regularized incomplete Beta function**, which is exactly the **CDF of the Beta distribution**:
 
 $$
-I_{p}(k + 1,\, n - k) = 1 - \frac{\alpha}{2} \quad \text{or} \quad \mathbb{P}\left(p > p_{\text{lower}} \,\mid \, p \sim \text{Beta}(k+1, n-k)\right) = \frac{\alpha}{2}
+I_p(\alpha, \beta) \;=\; \frac{1}{B(\alpha, \beta)} \int_0^p t^{\alpha-1} (1-t)^{\beta-1} \, dt,
 $$
+
+and $$B(\alpha, \beta)$$ is the Beta function:
+
+$$
+B(\alpha, \beta) = \int_0^1 t^{\alpha-1} (1-t)^{\beta-1} \, dt.
+$$
+
+By substituting this relationship into the cumulative binomial probability, we see that solving:
+
+$$
+\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2}
+$$
+
+is equivalent to finding the value of $$p$$ such that:
+
+$$
+1 - I_p(k+1, n-k) = \frac{\alpha}{2},
+$$
+
+or equivalently:
+
+$$
+I_p(k+1, n-k) = 1 - \frac{\alpha}{2} \quad \text{or} \quad \mathbb{P}\left(p > p_{\text{lower}} \,\mid \, p \sim \text{Beta}(k+1, n-k)\right) = \frac{\alpha}{2}
+$$
+
+This demonstrates that the cumulative sum of binomial probabilities directly corresponds to the CDF of a Beta distribution. Solving for $$p$$ in this context involves identifying the $$\alpha/2$$ quantile of the Beta distribution, which serves as the lower boundary of the confidence interval. 
+
+> 💡 NOTE: The fact that the two CDFs (representing complementary probabilities) sum to 1 hints at a deeper mathematical symmetry. This intriguing relationship may reveal further insights, which I plan to explore in future posts.
 
 ### 4. Why the Beta Distribution?
 
-Binomial expressions contain terms like  $$p^{k}(1-p)^{n-k}$$ . When we integrate or “accumulate” these terms over  $$[0,1]$$ , we naturally arrive at the Beta family of functions as discussed above. In the Bayesian context we discused previously, this is often described as “conjugacy” but even in a frequentist procedure like Clopper–Pearson, the same Beta integrals emerge once we:
+The connection arises because binomial expressions involve terms like $$p^k(1-p)^{n-k}$$. Integrating these terms over $$[0,1]$$ leads to Beta functions. In the frequentist context of Clopper–Pearson intervals, the Beta distribution provides the framework for converting **discrete** binomial probabilities into **continuous** confidence bounds. This exact relationship ensures the interval’s coverage properties, even for small sample sizes or extreme proportions.
 
-1. Convert binomial cumulative sums to an integral expression, and  
-2. Invert that integral to solve for  $$p$$ .
+## Simulations: Coverage and Interval Width
 
-Hence, the Beta distribution acts as a continuous bridge between discrete binomial counts and probabilities in  $$[0,1]$$ . By pinpointing the exact **Beta quantiles** that correspond to certain binomial tail probabilities, we avoid normal approximations altogether. This gives Clopper–Pearson its exact coverage guarantee—even in scenarios with small  $$n$$  or extreme  $$p$$ .
+To illustrate the behavior of the Clopper–Pearson interval, I conducted a simulation in R. Here’s the approach:
 
-In short, integrating binomial probabilities leads us to Beta functions; inverting those Beta integrals produces the interval bounds. This tight connection is what powers the Clopper–Pearson interval—ensuring it captures the true  $$p$$  at least  $$(1 - \alpha) \times 100\%$$  of the time, *no matter* the sample size or the true  $$p$$ .
+1. Simulate $$k \sim \text{Binomial}(n, p_{\text{true}})$$ over multiple runs.
+2. Compute intervals using:
+   - **Clopper–Pearson (Exact)**: Obtained using `binom.confint(..., method = "exact")`.
+   - **Wald (Naive)**: Calculated as $$\hat{p} \pm z \sqrt{\hat{p}(1-\hat{p})/n}$$.
+3. Evaluate each method’s coverage (percentage of intervals containing $$p_{\text{true}}$$) and interval width.
 
-## Simulation: Overall Coverage and Interval Width
+### Results
 
-To illustrate how the Clopper–Pearson interval behaves compared to other intervals (e.g., Wald, Wilso), I run a quick simulation in R. It works like following:
+- **Coverage:** Clopper–Pearson achieves the nominal 95% coverage, while Wald often falls below this threshold.
+  ```
+  Coverage (Clopper–Pearson): 0.957 
+  Coverage (Wald):            0.939
+  ```
+- **Interval Width:** Clopper–Pearson intervals are wider than Wald intervals, reflecting the trade-off between exact coverage and narrower intervals.
 
-- In each of $$N_{\text{sims}}$$ runs, I simulate a single binomial outcome $$k$$ from $$\mathrm{Binomial}(n, p_{\text{true}})$$.
-- Calculatre intervals:
-  1. **Clopper–Pearson (Exact):** Obtained using `binom.confint(..., methods = "exact")`.  
-  2. **Wald (Naive):** Calculated by $$\hat{p} \pm z \sqrt{\frac{\hat{p}\,(1 - \hat{p})}{n}}$$.
-- Evaluate each method’s coverage (the fraction of intervals that contain $$p_{\text{true}}$$) and width, and compare the results across both methods.
+### Visualizations
 
-Results of coverages show that Clopper–Pearson interval achieves the desired coverage probability of $$ 1 - \alpha $$, while the Wald interval can be slightly lower. 
-```
-Coverage (Clopper–Pearson): 0.957 
-Coverage (Wald):            0.939
-```
-Comparision of interval widths shows that Clopper–Pearson intervals tend to be wider than Wald intervals, reflecting the trade-off between exact coverage and interval width.
+Below is a histogram comparing interval widths for Clopper–Pearson and Wald methods.
 
 {::options parse_block_html="true" /}
 
@@ -201,9 +221,7 @@ ggplot(df_widths, aes(x = Width, fill = Method)) +
 
 <img src="assets/img/2025-01-14-beta-distribution-part1/Interval_width_Clopper_vs_Wald.png" alt="Distribution of Interval Width" style="display: block; margin: 0 auto; width: 80%; height: auto;">
 
-## Simulation: Coverage vs. Sample Size
-
-Another simulation we can do is to measure coverage across different sample sizes. To do this, I fix a true probability of success, say $$p_{\text{true}} = 0.3$$, and vary $$n$$ (for example, $5, 10, 30, 50, 100, 500$). For each value of $$n$$, I simulate a large number of binomial experiments, compute both Clopper–Pearson and Wald confidence intervals, and then calculate how often these intervals contain the true $$p_{\text{true}}$$. By plotting coverage against the sample size $$n$$, we can visualize how each method performs as we collect more data.
+In a second simulation, I examined coverage across different sample sizes. As shown, Clopper–Pearson maintains its exact coverage ($$ \ge 95\% $$) even for small sample sizes, whereas Wald intervals can dip below the nominal level.
 
 {::options parse_block_html="true" /}
 
@@ -273,4 +291,6 @@ ggplot(results, aes(x = factor(n), y = coverage, color = method, group = method)
 
 <img src="assets/img/2025-01-14-beta-distribution-part1/Coverage_n_Clopper_vs_Wald.png" alt="Coverage vs. n" style="display: block; margin: 0 auto; width: 80%; height: auto;">
 
-As shown with simulated data, Clopper–Pearson remains at or above 95% coverage (reflecting its “exact” nature), while Wald intervals can dip below 95% for smaller sample sizes. Seeing how both curves evolve as $$n$$ grows helps us understand the trade-off between accuracy and interval width for each method.
+## Summary
+
+The Clopper–Pearson interval, rooted in the Beta distribution, demonstrates the power of exact statistical methods. While its intervals may be conservative, the guarantee of coverage makes it a reliable choice, especially for small sample sizes or extreme proportions. This exploration reinforces how the Beta distribution serves as a **bridge between discrete and continuous probability frameworks**, providing a deeper appreciation for its versatility in frequentist contexts.
