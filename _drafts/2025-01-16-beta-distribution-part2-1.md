@@ -215,11 +215,11 @@ ggplot(df_widths, aes(x = Width, fill = Method)) +
 ```
 
 </details>
-<br/>
 
 {::options parse_block_html="false" /}
 
 <img src="assets/img/2025-01-14-beta-distribution-part1/Interval_width_Clopper_vs_Wald.png" alt="Distribution of Interval Width" style="display: block; margin: 0 auto; width: 80%; height: auto;">
+<br/>
 
 In a second simulation, I examined coverage across different sample sizes. As shown, Clopper–Pearson maintains its exact coverage ($$ \ge 95\% $$) even for small sample sizes, whereas Wald intervals can dip below the nominal level.
 
