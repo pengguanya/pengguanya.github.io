@@ -9,7 +9,7 @@ math: true
 
 ## Beta Distribution in Frequentist Inference
 
-In my [previous post]({% post_url 2025-01-19-beta-distribution-part1.md %}), I explored the basic properties of the Beta distribution and its role in Bayesian statistics. In this post, I shift focus to the **frequentist** perspective, examining how the Beta distribution appears in classical statistical methods like confidence interval construction, hypothesis testing and estimations.
+In my [previous post]({% post_url 2025-01-19-beta-distribution-part1 %}), I explored the basic properties of the Beta distribution and its role in Bayesian statistics. In this post, I shift focus to the **frequentist** perspective, examining how the Beta distribution appears in classical statistical methods like confidence interval construction, hypothesis testing and estimations.
 
 This installment (Part 2.1) focuses on the **Clopper–Pearson confidence intervals** for proportions, a method that directly leverages the Beta distribution to ensure exact coverage. Beyond this specific application, my aim is to build a deeper intuition for the Beta distribution, enabling connections between different statistical concepts and better understanding the principles underpinning these methods.
 
