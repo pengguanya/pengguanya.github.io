@@ -195,7 +195,7 @@ The Beta distribution models the variability of success probabilities $$p$$ acro
 ### References
 
 Key concepts and properties of the Beta-Binomial model are based on:
-
+- [Statistical Inference 2nd Edition - Page 161](https://www.routledge.com/Statistical-Inference/Casella-Berger/p/book/9781032593036?srsltid=AfmBOorWRaRL6Hh8DUN9waZP0yR68HQIMi0SrgTZZz-nHZr1UxQTjZFJ) by **George Casella**, **Roger L. Berger** (2024), CRC Press
 - [Beta-binomial distribution](https://en.wikipedia.org/wiki/Beta-binomial_distribution) - Wikipedia
 - [Chapter 3: The Beta-Binomial Bayesian Model - STAT 535 Lecture Notes](https://people.stat.sc.edu/Hitchcock/stat535slides3BRBhandout.pdf) by **David B. Hitchcock** (2022) - University of South Carolina
 
