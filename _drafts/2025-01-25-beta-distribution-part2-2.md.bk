@@ -7,14 +7,14 @@ tags: [statistics, beta-distribution]
 math: true
 ---
 
-In [Part 2.1]({% post_url 2025-01-16-beta-distribution-part2-1 %}) of this series, we examined Clopper–Pearson intervals for binomial proportions, a method guaranteeing exact coverage by leveraging the Beta distribution. One of the key insights was the [duality](https://www.its.caltech.edu/~zuev/teaching/2012Spring/Math408-Lecture-33.pdf) between confidence intervals and hypothesis tests in frequentist statistics: a $$100(1 - \alpha)\%$$ confidence interval corresponds to all parameter values $$p$$ that would *not* be rejected in a two-sided $$\alpha$$-level test.
+In the [previous post]({% post_url 2025-01-25-beta-distribution-part2-1 %}) of this series, we examined Clopper–Pearson intervals for binomial proportions, a method guaranteeing exact coverage by leveraging the Beta distribution. One of the key insights was the [duality](https://www.its.caltech.edu/~zuev/teaching/2012Spring/Math408-Lecture-33.pdf) between confidence intervals and hypothesis tests in frequentist statistics: a $$100(1 - \alpha)\%$$ confidence interval corresponds to all parameter values $$p$$ that would *not* be rejected in a two-sided $$\alpha$$-level test.
 
-This connection naturally paves the way for **hypothesis testing** in a frequentist setting. Specifically, we will look at two classic exact tests:
+This connection naturally leads to hypothesis testing in a frequentist framework. Specifically, we will look at two classic exact tests:
 
 1. **Exact Binomial Test**  
 2. **Fisher’s Exact Test** (for $$2 \times 2$$ contingency tables)
 
-Both are exact in the sense that they do not rely on large-sample approximations (such as the normal approximation to the binomial) and can handle small sample sizes or extreme proportions. As we will see, each test’s calculations align closely with the Beta distribution—often through the [incomplete Beta function]({% post_url _posts/2025-01-16-beta-distribution-part2-1.md#3-from-binomial-sums-to-the-incomplete-beta-function %}—mirroring the mechanism we saw with Clopper–Pearson intervals.
+Both are exact in the sense that they do not rely on large-sample approximations (such as the normal approximation to the binomial) and can handle small sample sizes or extreme proportions. As we will see, each test’s calculations align closely with the Beta distribution—often through the [incomplete Beta function]({% post_url 2025-01-25-beta-distribution-part2-1 %}#3-from-binomial-sums-to-the-incomplete-beta-function)—mirroring the mechanism we saw with Clopper–Pearson intervals.
 
 ---
 
@@ -53,7 +53,7 @@ If this p-value is less than significance level $$\alpha$$, we reject $$H_0$$.
 
 ### 1.3 The Beta Connection
 
-As in [Part 2.1](../2025-01-16-beta-distribution-part2-1/), binomial cumulative probabilities can be rewritten via the *regularized incomplete Beta function*. Specifically,
+As in the [previous post]({% post_url 2025-01-25-beta-distribution-part2-1 %}#3-from-binomial-sums-to-the-incomplete-beta-function), binomial cumulative probabilities can be rewritten via the *regularized incomplete Beta function*. Specifically,
 
 $$
 P(X \le k)
@@ -79,6 +79,9 @@ Below, we demonstrate three ways to compute the exact p-value in R:
 2. **Direct Binomial CDF** (summing binomial probabilities)
 3. **Beta CDF** (via the regularized incomplete Beta function)
 
+{::options parse_block_html="true" /}
+<details><summary markdown="span">R Code for Exact Binomial Test</summary>
+
 ```r
 # Parameters
 k  <- 8
@@ -101,6 +104,9 @@ cat("\nExact binom.test P-value:", binom_res$p.value,
     "\nDirect Binomial CDF:", p_value_binomial,
     "\nBeta function approach:", p_value_beta, "\n")
 ```
+</details>
+
+{::options parse_block_html="false" /}
 
 **Output:**
 ```
@@ -178,28 +184,114 @@ Imagine a simplified clinical trial scenario comparing two treatments, **T1** an
 
 We want to determine if the two treatments have significantly different success rates.
 
-```{r}
+{::options parse_block_html="true" /}
+
+<details><summary markdown="span">R Code for Fisher’s Exact Test</summary>
+
+```r
 table_2x2 <- matrix(c(15, 5, 10, 10), nrow = 2, byrow = TRUE)
 fisher.test(table_2x2, alternative = "two.sided")
+```
 
-# Output:
-# Fisher's Exact Test for Count Data
-# data:  table_2x2
-# p-value = 0.1908
-# alternative hypothesis: true odds ratio is not equal to 1
-# 95 percent confidence interval:
-#   0.6613959 14.4997314
-# sample estimates:
-# odds ratio 
-#   2.915714
+</details>
+
+{::options parse_block_html="false" /}
+
+**Output**:
+
+```
+Fisher's Exact Test for Count Data
+data:  table_2x2
+p-value = 0.1908
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+  0.6613959 14.4997314
+sample estimates:
+odds ratio 
+  2.915714
 ```
 A p-value of 0.1908  means that, assuming T1 and T2 truly have the same success probability, there is about a 19% chance of observing data this extreme. If the chosen significance level $$\alpha$$ is 0.05, we do not reject the null hypothesis. The 95% confidence interval for the odds ratio (approximately [0.66, 14.50]) also includes 1, suggesting we lack sufficient evidence to conclude a significant difference between the two treatments, even though the sample-based odds ratio is 2.92.
 
 ---
 
+### 2.5 Example: Comparing Two LLMs – A Simulation
+
+Beta distributions and exact hypothesis tests are commonly used in software engineering and A/B testing, and can be particularly helpful for evaluating Large Language Models (LLMs). Suppose we have two such models, **LLM A** and **LLM B**, each tested on 20 prompts, with outcomes classified as “success” or “failure.” We suspect there may be a performance gap, but we also want to avoid relying too heavily on normal approximations when the sample is small.
+
+#### Simulation Setup
+
+- **LLM B** has a fixed true success rate of $$0.70$$ (Baseline).  
+- **LLM A**’s true success rate varies from $$0.50$$ to $$0.90$$ in increments of $$0.05$$.  
+- We run $$10{,}000$$ simulations for each value of $$p_A$$, applying both Fisher’s Exact Test and a two-proportion $$z$$-test to see how often the null hypothesis (“no difference”) is rejected.
+
+{::options parse_block_html="true" /}
+
+<details><summary markdown="span">R Code for Simulation - Click to Expand</summary>
+
+```r
+set.seed(2025)
+nsim <- 10000
+nA   <- 20
+nB   <- 20
+pB   <- 0.70
+alpha <- 0.05
+
+pA_values <- seq(0.50, 0.90, by = 0.05)
+reject_fisher <- numeric(length(pA_values))
+reject_2prop  <- numeric(length(pA_values))
+
+for (j in seq_along(pA_values)) {
+  pA <- pA_values[j]
+  
+  pvals_fisher_j <- numeric(nsim)
+  pvals_2prop_j  <- numeric(nsim)
+  
+  for (i in seq_len(nsim)) {
+    successesA <- rbinom(1, nA, pA)
+    successesB <- rbinom(1, nB, pB)
+    
+    table_llm <- matrix(c(successesA, nA - successesA,
+                          successesB, nB - successesB),
+                        nrow = 2, byrow = TRUE)
+    
+    # Fisher’s Exact Test
+    pvals_fisher_j[i] <- fisher.test(table_llm, alternative = "two.sided")$p.value
+    
+    # Two-proportion z-test
+    pvals_2prop_j[i] <- prop.test(
+      x = c(successesA, successesB),
+      n = c(nA, nB)
+    )$p.value
+  }
+  
+  reject_fisher[j] <- mean(pvals_fisher_j < alpha)
+  reject_2prop[j]  <- mean(pvals_2prop_j  < alpha)
+}
+
+plot(pA_values, reject_fisher, type = "o", pch = 16, col = "blue",
+     ylim = c(0,1), xlab = "True success rate for LLM A",
+     ylab = "Rejection Rate", main = "Fisher’s Exact vs Two-Prop z-Test")
+lines(pA_values, reject_2prop, type = "o", pch = 16, col = "red")
+abline(h = alpha, lty = 2, col = "gray70")
+legend("topleft", legend = c("Fisher's Exact", "2-prop z-test"),
+       col = c("blue","red"), lty = 1, pch = 16)
+```
+</details>
+
+{::options parse_block_html="false" /}
+
+<img src="/assets/img/2025-02-02-beta-distribution-part2-2/Fisher_vs_two_proportion_z_test.png" alt="LLM Simulation" style="display: block; margin: auto; width: 70%;" />
+
+As seen from the simulation result, ear $$p_A = 0.70$$ (where the two LLMs are truly equal), we see both tests reject the null about 5% of the time, reflecting the desired Type I error rate. Fisher’s Exact Test is often a bit more conservative, so we might see it dip below 0.05, especially with small samples.
+
+As $$p_A$$ deviates from 0.70, both rejection rates increase because detecting a bigger gap (either $$p_A < 0.60$$ or $$p_A > 0.80$$) is easier. This upward trend corresponds to higher statistical power when one LLM is truly better or worse by a noticeable margin.
+
+Notice that Fisher’s Exact line (blue) runs higher especially at the extremes, reflecting slightly better power when the probabilities are far apart and $$n$$ is modest. That’s because it uses exact hypergeometric probabilities rather than a normal approximation, which can break down near $$ 0\% $$ or $$ 100\% $$. However, the two methods can be quite close in the middle range.
+
+
 ## 3. Where the Beta Distribution Shines
 
-Both Exact Binomial and Fisher’s Exact rely (directly or indirectly) on the same binomial/Beta machinery seen in [Clopper–Pearson intervals]({% post_url 2025-01-16-beta-distribution-part2-1.md %}}):
+Both Exact Binomial and Fisher’s Exact rely (directly or indirectly) on the same binomial/Beta machinery seen in [Clopper–Pearson intervals]({% post_url 2025-01-25-beta-distribution-part2-1 %}}):
 
 - **Exactness**: They work with full binomial/hypergeometric probabilities—no normal approximations—yielding valid results even for small $$n$$ or extreme proportions.
 - **Incomplete Beta Function**: Binomial PMFs map neatly to Beta CDFs, which are used to derive critical values or p-values.
@@ -213,4 +305,4 @@ underlies Clopper–Pearson intervals and exact tests. These **mathematical symm
 **References & Further Reading**  
 - Casella, G. and Berger, R. (2002). [Statistical Inference](https://www.routledge.com/Statistical-Inference/Casella-Berger/p/book/9781032593036?srsltid=AfmBOop65n4g_y2w4_3cVrhSLYa02tUqcFEhz4L171Za_UPp47WgDv4O), 2nd ed. Duxbury.  
 - Agresti, A. (2002). [Categorical Data Analysis](https://www.wiley.com/en-us/Categorical+Data+Analysis%2C+2nd+Edition-p-9780471458760), 2nd ed. John Wiley & Sons.  
-- [Clopper–Pearson Intervals (Part 2.1)]({% post_url _posts/2025-01-16-beta-distribution-part2-1.md %})
+- [Clopper–Pearson Intervals (Part 2.1)]({% post_url 2025-01-25-beta-distribution-part2-1 %})
