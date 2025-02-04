@@ -29,7 +29,7 @@ $$
 p_{\text{lower}} = 
 \begin{cases}
 0, & \text{if } k = 0, \\
-\mathrm{BetaInv}\bigl(\tfrac{\alpha}{2};\, k,\; n-k+1\bigr), & \text{if } 0 < k < n,
+B^{-1}\bigl(\tfrac{\alpha}{2};\, k,\; n-k+1\bigr), & \text{if } 0 < k < n,
 \end{cases}
 $$
 
@@ -37,11 +37,11 @@ $$
 p_{\text{upper}} = 
 \begin{cases}
 1, & \text{if } k = n, \\
-\mathrm{BetaInv}\bigl(1 - \tfrac{\alpha}{2};\, k+1,\; n-k\bigr), & \text{if } 0 < k < n.
+B^{-1}\bigl(1 - \tfrac{\alpha}{2};\, k+1,\; n-k\bigr), & \text{if } 0 < k < n.
 \end{cases}
 $$
 
-Here, $$ \mathrm{BetaInv}(p; \alpha, \beta) $$ denotes the inverse of the cumulative distribution function (CDF) of the $$ \mathrm{Beta}(\alpha, \beta) $$ distribution, often implemented as `qbeta()` in statistical software.
+Here, $$ B^{-1}(p; \alpha, \beta) $$ denotes the inverse of the cumulative distribution function (CDF) of the $$ \mathrm{Beta}(\alpha, \beta) $$ distribution, often implemented as `qbeta()` in statistical software.
 
 The Clopper–Pearson interval guarantees exact coverage, meaning the true coverage probability is at least $$1 - \alpha$$ for every possible value of $$p$$. However, this guarantee often comes at the expense of conservatism, as these intervals can be wider than other methods such as the Wilson interval.
 
@@ -57,36 +57,29 @@ $$
 
 In the **Clopper–Pearson** method, the goal is to identify the range of $$p$$ values for which the observed outcome $$k$$ is not too surprising, based on a specified significance level $$\alpha$$. Specifically, the bounds $$p_{\text{lower}}$$ and $$p_{\text{upper}}$$ are determined such that the cumulative probabilities meet the thresholds $$\alpha/2$$ and $$1 - \alpha/2$$.
 
-### 2. Constructing the Interval by “Slicing”
+### 2. Constructing the Interval
 
 To construct the confidence interval, we solve for $$p_{\text{lower}}$$ and $$p_{\text{upper}}$$ such that:
 
-- $$p_{\text{lower}}$$ is the value where $$P(X \leq k-1)$$ equals $$\alpha/2$$ (or where $$P(X \geq k)$$ is $$\alpha/2$$).
-- $$p_{\text{upper}}$$ is the value where $$P(X \leq k)$$ equals $$1 - \alpha/2$$.
+- $$p_{\text{lower}}$$ is the value where $$P(X \geq k)$$ equals $$\alpha/2$$.
+- $$p_{\text{upper}}$$ is the value where $$P(X \leq k)$$ equals $$\alpha/2$$.
+
+Intuitively, for $$p_{\text{lower}}$$, we want to find the smallest $$ p $$ where observing $$ k $$ or more successes would not be too rare. For $$p_{\text{upper}}$$, we seek the largest $$ p $$ where observing $$ k $$ or fewer successes would not be too rare.
 
 Mathematically, we solve:
 
 $$
-\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2} \quad \text{or} \quad \sum_{i=k}^{n} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2}.
-$$
-
-Intuitively, this process involves “scanning” through $$p \in [0,1]$$ and calculating:
-
-$$
-\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i}.
+\begin{align*}
+    \sum_{i=k}^{n} \binom{n}{i} p_{\text{lower}}^i (1-p_{\text{lower}})^{n-i} &= \frac{\alpha}{2}, \\
+    \sum_{i=0}^{k} \binom{n}{i} p_{\text{upper}}^i (1-p_{\text{upper}})^{n-i} &= \frac{\alpha}{2}.
+\end{align*}
 $$
 
 By pinpointing the values of $$p$$ that satisfy the cumulative probability thresholds, we determine the exact boundaries of the confidence interval without relying on approximations.
 
 ### 3. From Binomial Sums to the Incomplete Beta Function
 
-A key insight is that the cumulative sum of binomial probabilities can be rewritten in terms of the **regularized incomplete Beta function**. Recall that the cumulative binomial probability is:
-
-$$
-\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i}.
-$$
-
-Using properties of the Beta function, this can be expressed as:
+A key insight is that the cumulative sum of binomial probabilities is connected to Beta function through the regularized incomplete Beta function:
 
 $$
 \sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i} \;=\; 1 - I_p(k+1, n-k),
@@ -107,28 +100,56 @@ $$
 By substituting this relationship into the cumulative binomial probability, we see that solving:
 
 $$
-\sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i} = \frac{\alpha}{2}
+\sum_{i=0}^{k} \binom{n}{i} p_{\text{upper}}^i (1-p_{\text{upper}})^{n-i} = \frac{\alpha}{2}
 $$
 
-is equivalent to finding the value of $$p$$ such that:
+is equivalent to finding the value of $$p_{\text{upper}}$$ such that:
 
 $$
-1 - I_p(k+1, n-k) = \frac{\alpha}{2},
+I_{p_{\text{upper}}}(k+1, n-k) = 1 - \frac{\alpha}{2} 
 $$
 
-or equivalently:
+Therefore:
 
 $$
-I_p(k+1, n-k) = 1 - \frac{\alpha}{2} \quad \text{or} \quad \mathbb{P}\left(p > p_{\text{lower}} \,\mid \, p \sim \text{Beta}(k+1, n-k)\right) = \frac{\alpha}{2}
+p_{\text{upper}} = B^{-1}\left( 1 - \frac{\alpha}{2};\, k + 1,\, n - k \right)
 $$
 
-This demonstrates that the cumulative sum of binomial probabilities directly corresponds to the CDF of a Beta distribution. Solving for $$p$$ in this context involves identifying the $$\alpha/2$$ quantile of the Beta distribution, which serves as the lower boundary of the confidence interval. 
+, where $$ B^{-1}(q; \alpha, \beta) $$ denotes the **quantile function** of the Beta distribution
 
-> 💡 NOTE: The fact that the two CDFs (representing complementary probabilities) sum to 1 hints at a deeper mathematical symmetry. This intriguing relationship may reveal further insights, which I plan to explore in future posts.
+Similarly, we can derive the expression for $$p_{\text{lower}}$$:
 
-### 4. Why the Beta Distribution?
+$$
+p_{\text{lower}} = B^{-1}\left( \frac{\alpha}{2};\, k,\, n - k + 1 \right)
+$$
 
-The connection arises because binomial expressions involve terms like $$p^k(1-p)^{n-k}$$. Integrating these terms over $$[0,1]$$ leads to Beta functions. In the frequentist context of Clopper–Pearson intervals, the Beta distribution provides the framework for converting **discrete** binomial probabilities into **continuous** confidence bounds. This exact relationship ensures the interval’s coverage properties, even for small sample sizes or extreme proportions.
+Together, these bounds define the Clopper-Pearson confidence interval:
+
+$$
+\left[\, 
+B^{-1}\left( \frac{\alpha}{2};\, k,\, n - k + 1 \right),\; 
+B^{-1}\left( 1 - \frac{\alpha}{2};\, k + 1,\, n - k \right)\, 
+\right]
+$$
+
+**Beta-Binomial Duality**
+
+The above derivation reveals a striking duality: the cumulative probability of observing up to $$k$$ successes under a binomial model directly maps to the CDF of a Beta distribution. Specifically:
+- The upper bound $$p_{\text{upper}}$$ is the $$(1 - \alpha/2)$$ quantile of a Beta($$k + 1, n - k$$) distribution.  
+- The lower bound $$p_{\text{lower}}$$ is the $$\alpha/2$$ quantile of a Beta($$k, n - k + 1$$) distribution.
+
+This duality connects discrete binomial trials to the continuous Beta distribution and ensures that the excluded tails (each with probabilities $$\leq \alpha/2$$) in both directions sum to $$\alpha$$, guaranteeing coverage $$\geq 1 - \alpha$$.
+
+**A Hidden Symmetry**
+
+The Beta distribution exhibits a fundamental symmetry through its CDF:
+$$
+I_p(a, b) + I_{1-p}(b, a) = 1,
+$$
+where $$I_p(a, b)$$ is the probability that a $$ \text{Beta}(a, b) $$ random variable is $$ \le p$$. This symmetry ensures the interval adapts to both successes ($$k$$) and failures ($$n - k$$). For example, if successes are rare (small $$k$$), the interval shifts left to account for uncertainty, and vice versa. The symmetry reflects the inherent balance of the Beta distribution and its ability to model complementary probabilities.
+
+> **💡NOTE:**
+> Why does such duality exist? And why do the Beta parameters shift between bounds—for example, from $$(k, n-k+1)$$ for the lower bound to $$(k+1, n-k)$$ for the upper bound? This intriguing shift hints at a deeper mathematical structure underlying the binomial phenomenon, which I may explore in future posts.
 
 ## Simulations: Coverage and Interval Width
 
