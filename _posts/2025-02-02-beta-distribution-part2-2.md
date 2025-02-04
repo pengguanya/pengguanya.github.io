@@ -127,4 +127,4 @@ This mirrors our interval coverage findings - the price of exactness is reduced 
 
 ## 5. Summary
 
-Through Clopper-Pearson intervals and exact binomial tests, we've seen how the Beta distribution provides exact inference for binomial proportions while connecting interval estimation and hypothesis testing through mathematical duality. In our next post, we'll explore its role in modeling over-dispersed data through the Beta-Binomial framework.
+Through Clopper-Pearson intervals and exact binomial tests, we've seen how the Beta distribution provides exact inference for binomial proportions while connecting interval estimation and hypothesis testing through mathematical duality. In my next post, we'll explore its role in modeling over-dispersed data through the Beta-Binomial framework.
