@@ -36,7 +36,7 @@ TypeError: 'Embedding' object is not subscriptable
 ```
 
 **Why:**  
-- I mistakenly treated the response as a dictionary (using `response1["data"]`) even though the Portkey SDK returns custom objects with attributes. The correct approach is to use attribute access (e.g., `response1.data`).
+- I mistakenly treated the response as a dictionary (using `response["data"]`) even though the Portkey SDK returns custom objects with attributes. The correct approach is to use attribute access (e.g., `response.data`).
 
 ## The Fix: Correcting My Approach
 
