@@ -1,0 +1,113 @@
+---
+title: "Parsing LLM Embedding API Responses with Portkey"
+date: 2025-03-19
+author: peng
+categories: [Blogging, DataScience]
+tags: [AI, API, Embedding]
+math: true
+---
+
+While working with Portkey’s embedding API to compute cosine similarity between text embeddings, I encountered two issues that led to a`TypeError`. Reflecting on these mistakes and how I fixed them has given me a solid strategy for reading and interpreting API responses. Here’s a quick, personal recap for future reference.
+
+## My Initial Mistakes
+
+### 1. Not Specifying the Encoding Format
+
+**My original API call:**
+
+```python
+# Get embeddings for both texts using OpenAI's embedding model via Portkey.
+response = portkey.embeddings.create(input=text, model="text-embedding-ada-002-2")
+
+# Incorrect parsing using subscript notation
+embedding = np.array(response["data"][0]["embedding"])
+```
+
+**What went wrong:**  
+- **Issue:** Without specifying the encoding format, the API returned the embedding as a base64-encoded string rather than a list of floats.  
+- **Error:** This resulted in a `TypeError` when I tried to convert the string into a numeric array.
+
+### 2. Incorrect Parsing Method
+
+**The error message I encountered:**
+
+```python
+TypeError: 'Embedding' object is not subscriptable
+```
+
+**Why:**  
+- I mistakenly treated the response as a dictionary (using `response1["data"]`) even though the Portkey SDK returns custom objects with attributes. The correct approach is to use attribute access (e.g., `response1.data`).
+
+## The Fix: Correcting My Approach
+
+### Specify the Encoding Format
+
+I updated the API call to include `encoding_format="float"`, ensuring the API returns a list of floats ready for numerical operations:
+
+```python
+response = portkey.embeddings.create(
+    input=text,
+    model="text-embedding-ada-002-2",
+    encoding_format="float"
+)
+```
+
+### Parse the Response Using Attribute Access
+
+I then adjusted my parsing code to reflect that the response is a custom object with attributes:
+
+```python
+embedding = np.array(response.data[0].embedding, dtype=float)
+```
+
+With these changes, I successfully extracted numeric embeddings for further computations like cosine similarity.
+
+## Learning to Read the API Response Structure
+
+1. **Consult the Official Documentation:**  
+   The [docs](https://portkey.ai/docs/api-reference/inference-api/embeddings) provided a JSON sample response:
+
+   ```json
+   {
+     "data": [
+       {
+         "index": 123,
+         "embedding": [123],
+         "object": "embedding"
+       }
+     ],
+     "model": "<string>",
+     "object": "list",
+     "usage": { "prompt_tokens": 123, "total_tokens": 123 }
+   }
+   ```
+
+   **Key takeaways:**
+   - The response is a JSON object with keys like `"data"`, `"model"`, and `"usage"`.
+   - The `"data"` key holds a **list** (array) of embedding objects.
+   - Each embedding object contains an `"embedding"` key that holds the numeric vector when using `encoding_format="float"`.
+
+2. **Print and Inspect the Response:**  
+   I printed out the response:
+
+   ```python
+   print(response)
+   ```
+
+   The output looked like:
+
+   ```python
+   CreateEmbeddingResponse(..., data=[Embedding(embedding=[...], index=0, object='embedding')], ...)
+   ```
+
+   This confirmed:
+   - The response is a custom object.
+   - The `data` attribute is a list.
+   - Each element in the list is an `Embedding` object with an `embedding` attribute holding the vector.
+
+By combining these two approaches—consulting the documentation and inspecting the printed response—I was able to deduce the correct way to parse the API response.
+
+## Final Thoughts
+
+This blog captures my general approach to correctly using a Portkey LLM model API and parsing its response. The lessons learned here—specifying the correct encoding format and mapping the documented JSON structure to code by inspecting the actual response—will serve as a handy reference for future projects.
+
