@@ -17,7 +17,7 @@ While working with Portkey’s embedding API to compute cosine similarity betwee
 
 ```python
 # Get embeddings for both texts using OpenAI's embedding model via Portkey.
-response = portkey.embeddings.create(input=text, model="text-embedding-ada-002-2")
+response = portkey.embeddings.create(input=text, model="text-embedding-ada-002")
 
 # Incorrect parsing using subscript notation
 embedding = np.array(response["data"][0]["embedding"])
