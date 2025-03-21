@@ -5,6 +5,9 @@ author: peng
 categories: [Blogging, Development]  
 tags: [linux, shell, permission, file_system]  
 math: false
+image:
+  path: assets/headers/2025-03-21-linux-unzip-permission.webp
+  alt: Linux File Permissions
 ---
 
 Today, after extracting a ZIP file on Ubuntu, I found directories and files had restrictive permissions (`dr-xr-x---`), preventing modification or deletion. Here's a quick guide on why this occurs, how to fix it, and how to avoid it next time.
