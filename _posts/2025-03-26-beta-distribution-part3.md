@@ -1,13 +1,13 @@
 ---
 title: "Beta Distribution: Part 3 - Connection to Order Statistics" 
-date: 2025-03-19  
+date: 2025-03-26 
 author: peng  
 categories: [Blogging, DataScience]  
 tags: [statistics, beta-distribution]  
 math: true  
 ---
 
-Order statistics play a crucial role in probability and statistics, particularly in quantile estimation, reliability analysis, and extreme value theory. In previous posts, we've explored the Beta distribution from Bayesian and frequentist perspectives. Now, let’s uncover another insightful connection: **the relationship between order statistics and the Beta distribution**.
+Order statistics play a crucial role in probability and statistics, particularly in quantile estimation, reliability analysis, and extreme value theory. In [previous posts]({% post_url 2025-01-19-beta-distribution-part1 %}), we've explored the Beta distribution from Bayesian and frequentist perspectives. Now, let’s uncover another insightful connection: **the relationship between order statistics and the Beta distribution**.
 
 We'll begin by defining order statistics, carefully derive their cumulative distribution function (CDF) using indicator variables and Bernoulli trials, demonstrate their probability density function (PDF) with a detailed multinomial framework, and ultimately highlight their elegant connection to the Beta distribution when sampling from a Uniform(0,1) distribution.
 
@@ -172,9 +172,6 @@ $$
 
 Here's an R simulation illustrating this relationship:
 
-<img src="assets/img/2025-03-19-beta-distribution-part3/simulation_order_stat.png" alt="Order Statistics Simulation" style="display: block; margin: 0 auto; width: 70%; height: auto;">
-<br/>
-
 ```r
 library(ggplot2)
 
@@ -190,6 +187,9 @@ ggplot(data.frame(Value = order_stats), aes(x = Value)) +
   labs(title = "Order Statistic vs. Beta(3,8)") +
   theme_minimal()
 ```
+
+<img src="assets/img/2025-03-26-beta-distribution-part3/simulation_order_stat.png" alt="Order Statistics Simulation" style="display: block; margin: 0 auto; width: 65%; height: auto;">
+<br/>
 
 ## Conclusion
 
