@@ -2,12 +2,12 @@
 title: "Navigating Protocol Amendments and Clarification Letters"
 date: 2025-05-22
 author: peng
-categories: [Blogging, Clinical Research]
+categories: [Blogging, DrugDevelopment]
 tags: [protocol]
 math: false
 image:
   path: assets/headers/2025-05-22-protocol-amendments.webp
-  alt: DrugDevelopment
+  alt: Protocol Amendments
 ---
 
 In the dynamic world of clinical research, protocols evolve—and so must our approach to managing those changes. Over the years, I’ve witnessed firsthand how clear processes, thoughtful communication, and the right tools can mean the difference between smooth study progression and avoidable delays. Here are some distilled lessons and practical pointers for colleagues in pharma, regulatory affairs, and CROs.
