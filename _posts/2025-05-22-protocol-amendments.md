@@ -98,5 +98,5 @@ In my experience, missing a past version is a top audit finding and totally prev
 
 **Final Thoughts**
 
-Driving protocol amendments and clarifications is as much about process as it is about people. Build trust with transparent communication, leverage decision tools to minimize rework, and always keep patient safety and data integrity front and center. From drafting that first protocol line to managing the final site-specific change, a structured yet flexible approach will keep your study—and your stakeholders on track.
+Driving protocol amendments and clarifications is as much about process as it is about people. Build trust with transparent communication, leverage decision tools to minimize rework, and always keep patient safety and data integrity front and center. From drafting that first protocol line to managing the final site-specific change, a structured yet flexible approach will keep your study and your stakeholders on track.
 
