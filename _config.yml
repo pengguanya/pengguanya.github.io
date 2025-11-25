@@ -223,3 +223,8 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+# Jekyll Feed Settings
+feed:
+  posts_limit: 20
+
