@@ -225,6 +225,9 @@ jekyll-archives:
     category: /categories/:name/
 
 # Jekyll Feed Settings
+plugins:
+  - jekyll-feed
+
 feed:
   posts_limit: 20
 
