@@ -9,6 +9,14 @@
 
 /* append your custom style below */
 
+.preview-img {
+  aspect-ratio: auto !important;
+}
+
+.preview-img img {
+  object-fit: contain !important;
+}
+
 .custom-red {
     color: #F8766D;
 }
