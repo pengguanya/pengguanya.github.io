@@ -2,7 +2,7 @@
 title: "Beta Distribution: Part 2.2 – Frequentist Perspectives – Exact Hypothesis Testing"
 date: 2025-02-02
 author: peng
-categories: [Blogging, DataScience]
+categories: [Quantitative Research]
 tags: [statistics, beta-distribution]
 math: true
 ---

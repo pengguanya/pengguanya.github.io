@@ -1,8 +1,8 @@
 ---
-title: "Beta Distribution: Part 3 - Extensions of the Beta Distribution"
-date: 2025-01-17
+title: "Beta Distribution: Part 5 - Extensions of the Beta Distribution"
+date: 2025-04-09
 author: peng
-categories: [Blogging, DataScience]
+categories: [Quantitative Research]
 tags: [statistics, beta-distribution, beysian-statistics]
 math: true
 ---

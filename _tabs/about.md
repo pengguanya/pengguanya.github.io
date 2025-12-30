@@ -11,9 +11,11 @@ I am a data scientist and problem-solver with expertise in mathematics, statisti
 
 ## Main Focus
 
-* Data Science, Statistics & Analytics
-* Biomedical Research & Drug Development
-* Clinical Trials & Regulatory Standards
-* Technical topics including computerized systems, DevOps/MLOps & Linux/Unix OS
+My blog is organized into four core pillars that represent my professional focus:
 
-Through my blog posts, I aim to share insights and best practices that bridge cutting-edge quantitative research with the practical needs of biomedical and clinical trial environments.
+* **Quantitative Research:** Deep dives into mathematics, statistics, and probabilistic modeling (e.g., Beta distributions, Bayesian inference).
+* **Drug Development:** Insights into clinical trial protocols, safety reporting, and navigating regulatory landscapes (e.g., EU AI Act, Post-market investigation).
+* **Intelligence & ML:** Exploring the frontiers of AI, Reinforcement Learning, and practical LLM integration.
+* **DevOps & Computing:** Technical guides on Linux/Unix systems, cloud infrastructure (Azure), and automated development workflows.
+
+Through these posts, I aim to bridge the gap between rigorous quantitative research and the practical, regulated requirements of the biomedical and clinical trial environments.

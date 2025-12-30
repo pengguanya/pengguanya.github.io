@@ -2,7 +2,7 @@
 title: "Covariance Matrix of Multivariate Gaussian Distributions: A Detailed Exploration"
 date: 2024-08-18
 author: peng
-categories: [Blogging, DataScience]
+categories: [Quantitative Research]
 tags: [statistics, multivariate-gaussian, covariance-matrix]
 math: true
 image:
