@@ -2,7 +2,7 @@
 title: "Navigating Post-Market Clinical Investigations for Medical Device"
 date: 2025-01-13
 author: peng
-categories: [Blogging, DrugDevelopment]
+categories: [Drug Development]
 tags: [medical devices, post-market, regulation]
 math: true
 image:

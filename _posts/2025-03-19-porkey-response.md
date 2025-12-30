@@ -2,7 +2,7 @@
 title: "Parsing LLM Embedding API Responses with Portkey"
 date: 2025-03-19
 author: peng
-categories: [Blogging, DataScience]
+categories: [Intelligence & ML]
 tags: [AI, API, Embedding]
 math: true
 ---

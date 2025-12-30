@@ -2,7 +2,7 @@
 title: "Beta Distribution: Part 2.2 - Frequentist Perspectives - Beta-Binomial Model"
 date: 2025-01-16
 author: peng
-categories: [Blogging, DataScience]
+categories: [Quantitative Research]
 tags: [statistics, beta-distribution]
 math: true
 ---

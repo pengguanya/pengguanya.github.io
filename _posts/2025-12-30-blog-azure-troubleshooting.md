@@ -2,7 +2,7 @@
 title: "Troubleshooting Azure Static Web Apps: 404 Errors & Disabled Subscriptions"
 date: 2025-12-30
 author: peng
-categories: [DevOps, Azure, Troubleshooting]
+categories: [DevOps & Computing]
 tags: [azure, static-web-apps, github-actions, ci-cd]
 math: false
 image:

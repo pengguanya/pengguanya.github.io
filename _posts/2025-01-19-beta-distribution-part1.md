@@ -2,7 +2,7 @@
 title: "Beta Distribution: Part 1 - Intuition and Properties"
 date: 2025-01-19
 author: peng
-categories: [Blogging, DataScience]
+categories: [Quantitative Research]
 tags: [statistics, beta-distribution, beysian-statistics]
 math: true
 ---

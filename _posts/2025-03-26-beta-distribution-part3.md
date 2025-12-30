@@ -2,7 +2,7 @@
 title: "Beta Distribution: Part 3 - Connection to Order Statistics" 
 date: 2025-03-26 
 author: peng  
-categories: [Blogging, DataScience]  
+categories: [Quantitative Research]  
 tags: [statistics, beta-distribution]  
 math: true  
 ---

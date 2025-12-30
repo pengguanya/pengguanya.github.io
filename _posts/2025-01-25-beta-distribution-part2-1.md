@@ -2,7 +2,7 @@
 title: "Beta Distribution: Part 2.1 - Frequentist Perspectives - Clopper–Pearson Intervals"
 date: 2025-01-25
 author: peng
-categories: [Blogging, DataScience]
+categories: [Quantitative Research]
 tags: [statistics, beta-distribution]
 math: true
 ---

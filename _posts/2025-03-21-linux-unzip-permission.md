@@ -2,7 +2,7 @@
 title: "Solving Permission Issues When Extracting ZIP Files on Linux" 
 date: 2025-03-21 
 author: peng  
-categories: [Blogging, Development]  
+categories: [DevOps & Computing]  
 tags: [linux, shell, permission, file_system]  
 math: false
 image:

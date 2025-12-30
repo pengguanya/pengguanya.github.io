@@ -2,7 +2,7 @@
 title: "Navigating Protocol Amendments and Clarification Letters"
 date: 2025-05-22
 author: peng
-categories: [Blogging, DrugDevelopment]
+categories: [Drug Development]
 tags: [protocol]
 math: false
 image:
