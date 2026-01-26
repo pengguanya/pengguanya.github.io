@@ -225,8 +225,9 @@ jekyll-archives:
     category: /categories/:name/
 
 # Jekyll Feed Settings
-plugins:
-  - jekyll-feed
+# Chirpy theme provides its own feed.xml template, so the jekyll-feed plugin is not needed.
+# Feed configuration below is used by Chirpy's template.
+# Note: The posts_limit setting is currently hard-coded to 5 in the Chirpy theme template.
 
 feed:
   posts_limit: 20
