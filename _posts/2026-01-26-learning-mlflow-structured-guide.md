@@ -2,7 +2,7 @@
 title: "A Structured Guide to Learning MLflow and MLOps Fundamentals"
 date: 2026-01-26
 author: peng
-categories: [DataScience, Development]
+categories: [AI & ML]
 tags: [mlflow, mlops, machine-learning, experiment-tracking, model-management, tutorial, python]
 math: false
 image:

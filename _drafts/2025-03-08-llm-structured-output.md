@@ -2,7 +2,7 @@
 title: "A Practical Look at Generating Structured Outputs with LLMs"
 date: 2025-03-08
 author: peng
-categories: [Intelligence & ML]
+categories: [AI & ML]
 tags: [AI, LLM]
 math: true
 ---
