@@ -7,13 +7,14 @@ tags: [gitlab-ci, ci-cd, semantic-release, python, changelog, debugging]
 math: false
 ---
 
-My GitLab CI/CD pipeline showed "Job succeeded" for the release stage, but `CHANGELOG.md` never changed. The version bumped correctly, tags were created, yet the changelog remained empty. There were no errors and no warnings to trace. After hours of investigation, it turned out the issue wasn't what I configured, but what I *didn't*—an undocumented default setting that silently disables file updates unless you know the secret handshake.
+My GitLab CI/CD pipeline showed "Job succeeded" for the release stage, but CHANGELOG.md never changed. The version bumped correctly, tags were created, yet the changelog remained empty. No errors and no warings to trace. After hours of investigation, it turned out the issue wasn't what I configured, but what I didn't—an undocumented default setting that silently disables file updates unless you know the secret handshake.
+
 
 ---
 
 ## The Initial Problem
 
-After setting up [`python-semantic-release`](https://python-semantic-release.readthedocs.io/en/latest/) for automatic versioning, I expected:
+After setting up `python-semantic-release` for automatic versioning, I expected:
 1. Push a `fix:` commit to main
 2. Pipeline runs, version bumps (e.g., 2.3.4 → 2.3.5)
 3. CHANGELOG.md gets updated with the new release
@@ -39,7 +40,7 @@ No errors. No warnings. The changelog simply wasn't touched.
 
 ## Step 1: Verify the File Was Never Modified
 
-First, I checked if CHANGELOG.md was ever touched by any release commit:
+First, I listed all commits that ever touched CHANGELOG.md (this should include automated release commits if the tool is working):
 
 ```bash
 git log --all --oneline -- CHANGELOG.md
@@ -56,7 +57,7 @@ Only one commit—my initial manual creation. None of the `chore(release):` comm
 
 ## Step 2: Check What Release Commits Actually Contain
 
-I examined what files semantic-release was actually committing:
+Next, I picked one of the automated `chore(release):` commits and checked what files it actually modified:
 
 ```bash
 git show 7b3d91a --stat  # A release commit for v2.3.5
