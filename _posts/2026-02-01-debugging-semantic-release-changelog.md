@@ -13,7 +13,7 @@ My GitLab CI/CD pipeline showed "Job succeeded" for the release stage, but `CHAN
 
 ## The Initial Problem
 
-After setting up `python-semantic-release` for automatic versioning, I expected:
+After setting up [`python-semantic-release`](https://python-semantic-release.readthedocs.io/en/latest/) for automatic versioning, I expected:
 1. Push a `fix:` commit to main
 2. Pipeline runs, version bumps (e.g., 2.3.4 → 2.3.5)
 3. CHANGELOG.md gets updated with the new release
