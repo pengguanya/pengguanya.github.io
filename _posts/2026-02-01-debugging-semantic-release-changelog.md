@@ -100,11 +100,12 @@ semantic-release generate-config
 ```
 
 **Default config showed:**
+
 ```toml
 [semantic_release.changelog]
 changelog_file = ""
 mode = "update"
-insertion_flag = "<!-- version list -->"
+insertion_flag = "<!-- version list -->"  # <-- critical undocumented setting!
 ```
 
 > 💡 **Key finding:** The `insertion_flag` setting isn't in the official docs, but appears in the tool's default config output. This was the critical clue—it told me the tool expects a marker in the file.
