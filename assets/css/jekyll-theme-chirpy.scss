@@ -24,3 +24,14 @@
 .custom-green {
     color: #00BFC4;
 }
+
+/* Prevent Rouge error token background from showing as red blocks. */
+.highlight .err,
+.highlighter-rouge .err,
+pre .err,
+code .err {
+  background: transparent !important;
+  color: inherit !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
