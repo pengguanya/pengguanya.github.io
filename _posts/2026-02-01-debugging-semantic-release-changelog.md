@@ -7,7 +7,7 @@ tags: [gitlab-ci, ci-cd, semantic-release, python, changelog, debugging]
 math: false
 ---
 
-My GitLab CI/CD pipeline showed "Job succeeded" for the release stage, but CHANGELOG.md never changed. The version bumped correctly, tags were created, yet the changelog remained empty. No errors and no warings to trace. After hours of investigation, it turned out the issue wasn't what I configured, but what I didn't—an undocumented default setting that silently disables file updates unless you know the secret handshake.
+My GitLab CI/CD pipeline showed "Job succeeded" for the release stage, but CHANGELOG.md never changed. The version bumped correctly, tags were created, yet the changelog remained empty. No errors and no warings to trace. After hours of investigation, it turned out the issue wasn't what I configured, but what I *didn't*—an undocumented default setting that silently disables file updates unless you know the secret handshake.
 
 
 ---
