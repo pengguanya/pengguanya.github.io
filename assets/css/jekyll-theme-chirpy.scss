@@ -27,12 +27,8 @@
 
 /* Prevent Rouge error token background from showing as red blocks. */
 .highlight .err,
-.highlighter-rouge .err,
-pre .err,
-code .err {
+.highlighter-rouge .err {
   background: transparent !important;
-  color: inherit !important;
-  border: 0 !important;
-  box-shadow: none !important;
+  border: none !important;
 }
 
