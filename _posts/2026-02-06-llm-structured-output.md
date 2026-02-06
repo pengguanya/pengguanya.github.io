@@ -1,6 +1,7 @@
 ---
 title: "A Practical Look at Generating Structured Outputs with LLMs"
-date: 2025-03-08
+date: 2026-02-06
+last_modified_at: 2026-02-06
 author: peng
 categories: [AI & ML]
 tags: [AI, LLM]
