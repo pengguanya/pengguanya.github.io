@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colleague Applause Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Purple Theme Palette */
+            --primary: #8e44ad;
+            --primary-gradient: linear-gradient(135deg, #8e44ad 0%, #c0392b 100%);
+            --btn-gradient: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            --btn-hover: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --accent: #e056fd;
+            --text-main: #2c3e50;
+            --text-light: #7f8c8d;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-radius: 20px;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #cd9cf2; /* Fallback */
+            background: linear-gradient(135deg, #cd9cf2 0%, #f6f3ff 100%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center vertically */
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Decorative Background Blobs */
+        .decoration {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .blob-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: #a29bfe; animation-delay: 0s; }
+        .blob-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: #ff7675; animation-delay: 2s; }
+        .blob-3 { bottom: 20%; left: 20%; width: 200px; height: 200px; background: #74b9ff; animation-delay: 4s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+            100% { transform: translateY(0px) scale(1); }
+        }
+
+        .main-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1000px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px rgba(142, 68, 173, 0.15);
+            width: 100%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .input-panel { flex: 1; }
+
+        /* Output Panel Styling */
+        .output-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.6); /* Slightly more transparent when empty */
+            border: 2px dashed #bcb0d4;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .output-panel.active {
+            background-color: #fff;
+            border: none;
+            box-shadow: 0 15px 50px rgba(142, 68, 173, 0.2);
+            justify-content: flex-start;
+            text-align: left;
+            transform: scale(1.02);
+        }
+
+        /* Typography */
+        h2 {
+            margin-top: 0;
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+            background: -webkit-linear-gradient(45deg, #8e44ad, #ff7675);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        /* Form Elements */
+        .form-group { margin-bottom: 1.5rem; width: 100%; }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #574b90;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 12px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            background-color: #fcfcfc;
+            transition: all 0.3s;
+            color: var(--text-main);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(224, 86, 253, 0.1);
+        }
+
+        textarea { resize: vertical; min-height: 100px; }
+        .hidden { display: none; }
+
+        /* Buttons */
+        button.generate-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--btn-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.3);
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        button.generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(142, 68, 173, 0.4);
+            background: var(--btn-hover);
+        }
+
+        button.generate-btn:active { transform: scale(0.98); }
+
+        /* Output Area Styling */
+        .illustration-box {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, #f8f0ff 0%, #fff 100%);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border: 1px solid #f3e5f5;
+        }
+
+        .illustration-box svg { width: 140px; height: 140px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
+
+        .placeholder-text {
+            color: #95a5a6;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        textarea#resultOutput {
+            min-height: 160px;
+            margin-bottom: 1rem;
+            background-color: #fdfaff;
+            border: 2px solid #f0e6fa;
+            color: #4a4a4a;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .btn-copy {
+            width: 100%;
+            padding: 14px;
+            background-color: #2ecc71; /* Keep success green for copy, acts as accent */
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2);
+        }
+
+        .btn-copy:hover { background-color: #27ae60; transform: translateY(-1px); }
+
+        /* Toast */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #34495e;
+            color: #fff;
+            text-align: center;
+            border-radius: 50px;
+            padding: 14px 24px;
+            position: fixed;
+            z-index: 1001;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            font-weight: 500;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 40px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 40px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        /* Mobile Responsive */
+        @media (max-width: 850px) {
+            .main-wrapper { flex-direction: column; }
+            .output-panel {
+                min-height: auto;
+                opacity: 1;
+                border: 2px solid #e1e1e1;
+                background-color: #fff;
+                padding: 2rem;
+            }
+            body { padding: 20px 10px; align-items: flex-start; }
+            .blob-1, .blob-2, .blob-3 { display: none; /* Hide blobs on mobile for performance/space */ }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="decoration blob-1"></div>
+    <div class="decoration blob-2"></div>
+    <div class="decoration blob-3"></div>
+
+    <div class="main-wrapper">
+
+        <div class="card input-panel">
+            <h2>Applause Gen</h2>
+            <div class="subtitle">Create the perfect message for your team 💜</div>
+
+            <div class="form-group">
+                <label for="colleagueName">Colleague's Name</label>
+                <input type="text" id="colleagueName" placeholder="e.g. Alex Smith">
+            </div>
+
+            <div class="form-group">
+                <label for="applauseType">Occasion</label>
+                <select id="applauseType">
+                    <option value="contribution">Contribution / Project Success</option>
+                    <option value="anniversary">Work Anniversary</option>
+                    <option value="birthday">Birthday</option>
+                    <option value="promotion">Promotion</option>
+                    <option value="retirement">Retirement</option>
+                    <option value="others">Others / General Appreciation</option>
+                </select>
+            </div>
+
+            <div class="form-group hidden" id="yearsContainer">
+                <label for="yearsCount">Years of Service</label>
+                <input type="number" id="yearsCount" min="1" placeholder="e.g. 5">
+            </div>
+
+            <div class="form-group">
+                <label for="details">Key Details (Optional)</label>
+                <textarea id="details" placeholder="e.g. They led the migration project flawlessly..."></textarea>
+            </div>
+
+            <button class="generate-btn" onclick="generateMessage()">✨ Generate Magic Message</button>
+        </div>
+
+        <div class="card output-panel" id="outputPanel">
+            <div id="initialState">
+                <div style="font-size: 4rem; margin-bottom: 10px; opacity: 0.8;">🔮</div>
+                <div class="placeholder-text">Fill in the details and click generate to see the magic happen.</div>
+            </div>
+
+            <div id="resultState" class="hidden" style="width: 100%;">
+                <div class="illustration-box" id="illustrationArea">
+                    </div>
+                <h3>Your Message</h3>
+                <textarea id="resultOutput"></textarea>
+                <button class="btn-copy" onclick="copyToClipboard()">
+                    <span>📋 Copy Text</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="toast">Copied to clipboard! 📋</div>
+
+    <script>
+        // --- SVG Graphics Data (Updated Colors for Purple Theme) ---
+        const graphics = {
+            birthday: `
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 60H80V85C80 87.7614 77.7614 90 75 90H25C22.2386 90 20 87.7614 20 85V60Z" fill="#9b59b6"/>
+                    <rect x="15" y="45" width="70" height="15" rx="2" fill="#8e44ad"/>
+                    <path d="M48 20L46 35H54L52 20C52 20 50 15 48 20Z" fill="#f1c40f"/>
+                    <ellipse cx="50" cy="18" rx="2" ry="5" fill="#f39c12"/>
+                    <circle cx="25" cy="52" r="3" fill="#fff"/>
+                    <circle cx="50" cy="52" r="3" fill="#fff"/>
+                    <circle cx="75" cy="52" r="3" fill="#fff"/>
+                </svg>`,
+            anniversary: `
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="40" r="25" fill="#f39c12"/>
+                    <circle cx="50" cy="40" r="20" fill="#f1c40f"/>
+                    <path d="M35 60L30 90L50 80L70 90L65 60" fill="#8e44ad"/>
+                    <path d="M40 85L50 78L60 85" stroke="#fff" stroke-width="2"/>
+                    <path d="M35 60H65" stroke="#fff" stroke-width="2"/>
+                    <path d="M45 40L50 35L55 40L50 50L45 40Z" fill="#fff"/>
+                </svg>`,
+            promotion: `
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="70" width="20" height="20" fill="#a569bd"/>
+                    <rect x="40" y="50" width="20" height="40" fill="#9b59b6"/>
+                    <rect x="70" y="20" width="20" height="70" fill="#8e44ad"/>
+                    <path d="M15 65L45 45L75 15" stroke="#f1c40f" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M70 15L75 15L75 25" stroke="#f1c40f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`,
+            retirement: `
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="80" cy="20" r="15" fill="#f1c40f"/>
+                    <path d="M0 80H100V100H0V80Z" fill="#2980b9"/>
+                    <path d="M20 80L35 50L50 80" fill="#e74c3c"/>
+                    <circle cx="35" cy="50" r="15" fill="#2ecc71"/>
+                    <path d="M30 55C30 55 35 60 40 55" stroke="#fff" stroke-width="2"/>
+                </svg>`,
+            contribution: `
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 60V90H20V60H30ZM30 60H70C75 60 78 57 78 52V48C78 45 76 43 74 43H60L62 30C62 26 59 23 55 23C53 23 51 24 50 25L30 60Z" fill="#8e44ad"/>
+                    <path d="M25 60H15" stroke="#fff" stroke-width="2"/>
+                </svg>`,
+            others: `
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="35" fill="#f1c40f"/>
+                    <circle cx="40" cy="40" r="4" fill="#2c3e50"/>
+                    <circle cx="60" cy="40" r="4" fill="#2c3e50"/>
+                    <path d="M35 60C35 60 42 70 50 70C58 70 65 60 65 60" stroke="#2c3e50" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M50 15L55 25H65L57 32L60 42L50 36L40 42L43 32L35 25H45L50 15Z" fill="#e74c3c" transform="translate(30, -10) scale(0.5)"/>
+                </svg>`
+        };
+
+        const typeSelect = document.getElementById('applauseType');
+        const yearsContainer = document.getElementById('yearsContainer');
+        const outputPanel = document.getElementById('outputPanel');
+        const initialState = document.getElementById('initialState');
+        const resultState = document.getElementById('resultState');
+
+        // Toggle 'Years' input visibility
+        typeSelect.addEventListener('change', function() {
+            if (this.value === 'anniversary') {
+                yearsContainer.classList.remove('hidden');
+            } else {
+                yearsContainer.classList.add('hidden');
+            }
+        });
+
+        function generateMessage() {
+            const name = document.getElementById('colleagueName').value.trim() || "Colleague";
+            const type = document.getElementById('applauseType').value;
+            const details = document.getElementById('details').value.trim();
+            const years = document.getElementById('yearsCount').value;
+
+            let message = "";
+            let svgContent = graphics.others; // default
+
+            // Logic to build the message and select graphic
+            switch (type) {
+                case 'anniversary':
+                    svgContent = graphics.anniversary;
+                    let yearText = years ? `${years}-year ` : "";
+                    message = `Happy ${yearText}work anniversary, ${name}! 🎉\n\nIt's incredible to see how much you've accomplished here. `;
+                    message += details ? `Specifically, I wanted to highlight: ${details}. ` : `Thank you for your continued dedication and hard work. `;
+                    message += `Here's to another fantastic year ahead!`;
+                    break;
+
+                case 'retirement':
+                    svgContent = graphics.retirement;
+                    message = `Congratulations on your well-deserved retirement, ${name}! 🌴\n\nWe are going to miss you around here. `;
+                    message += details ? `Your impact has been huge, especially when you: ${details}. ` : `Thank you for all the years of leadership and support. `;
+                    message += `Wishing you all the best in this new chapter of your life!`;
+                    break;
+
+                case 'contribution':
+                    svgContent = graphics.contribution;
+                    message = `Huge kudos to ${name} for an outstanding job! 👍\n\n`;
+                    message += details ? `I wanted to take a moment to recognize your work on: ${details}. It really made a difference. ` : `Your recent contributions have been incredibly valuable to the team. `;
+                    message += `Keep up the amazing work!`;
+                    break;
+
+                case 'birthday':
+                    svgContent = graphics.birthday;
+                    message = `Happy Birthday, ${name}! 🎂\n\n`;
+                    message += details ? `Hope you have a fantastic day! ${details}. ` : `Wishing you a day filled with joy and a fantastic year ahead. `;
+                    message += `Enjoy your special day!`;
+                    break;
+
+                case 'promotion':
+                    svgContent = graphics.promotion;
+                    message = `Big congratulations on your promotion, ${name}! 🚀\n\n`;
+                    message += details ? `It is so well deserved, especially considering how you ${details}. ` : `This is a well-deserved recognition of your hard work and talent. `;
+                    message += `Excited to see you crush it in this new role!`;
+                    break;
+
+                case 'others':
+                default:
+                    svgContent = graphics.others;
+                    message = `Hi ${name}, just wanted to send a quick note of appreciation. 🌟\n\n`;
+                    message += details ? `${details} \n\n` : `Thank you for being such a great colleague and always bringing your best to the team. `;
+                    message += `Thanks for everything you do!`;
+                    break;
+            }
+
+            // Update DOM
+            document.getElementById('illustrationArea').innerHTML = svgContent;
+            document.getElementById('resultOutput').value = message;
+
+            // Switch view state
+            initialState.classList.add('hidden');
+            resultState.classList.remove('hidden');
+            outputPanel.classList.add('active');
+        }
+
+        function copyToClipboard() {
+            const copyText = document.getElementById("resultOutput");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value).then(() => {
+                showToast();
+            });
+        }
+
+        function showToast() {
+            var x = document.getElementById("toast");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
+</body>
+</html>

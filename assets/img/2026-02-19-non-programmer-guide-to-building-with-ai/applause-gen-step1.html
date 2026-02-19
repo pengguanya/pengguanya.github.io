@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colleague Applause Generator</title>
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --primary-hover: #357abd;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+            --text: #333;
+            --border: #ddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Hidden class for the conditional year input */
+        .hidden {
+            display: none;
+        }
+
+        button.generate-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        button.generate-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        #resultOutput {
+            width: 100%;
+            min-height: 150px;
+            margin-bottom: 1rem;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-copy {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .btn-copy:hover { background-color: #27ae60; }
+
+        .btn-close {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-close:hover { background-color: #c0392b; }
+
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1001;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 17px;
+        }
+
+        .toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>👏 Applause Generator</h2>
+
+        <div class="form-group">
+            <label for="colleagueName">Colleague's Name</label>
+            <input type="text" id="colleagueName" placeholder="e.g. Alex Smith">
+        </div>
+
+        <div class="form-group">
+            <label for="applauseType">Type of Applause</label>
+            <select id="applauseType">
+                <option value="contribution">Contribution / Project Success</option>
+                <option value="anniversary">Work Anniversary</option>
+                <option value="birthday">Birthday</option>
+                <option value="promotion">Promotion</option>
+                <option value="retirement">Retirement</option>
+                <option value="others">Others / General Appreciation</option>
+            </select>
+        </div>
+
+        <div class="form-group hidden" id="yearsContainer">
+            <label for="yearsCount">Years of Service</label>
+            <input type="number" id="yearsCount" min="1" placeholder="e.g. 5">
+        </div>
+
+        <div class="form-group">
+            <label for="details">Additional Details (Optional)</label>
+            <textarea id="details" placeholder="e.g. They led the migration project flawlessly..."></textarea>
+        </div>
+
+        <button class="generate-btn" onclick="generateMessage()">Generate Message</button>
+    </div>
+
+    <div class="modal-overlay" id="outputModal">
+        <div class="modal-content">
+            <div class="modal-header">Edit & Copy Your Message</div>
+            <textarea id="resultOutput"></textarea>
+            <div class="modal-actions">
+                <button class="btn btn-close" onclick="closeModal()">Close</button>
+                <button class="btn btn-copy" onclick="copyToClipboard()">Copy Text</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">Copied to clipboard!</div>
+
+    <script>
+        const typeSelect = document.getElementById('applauseType');
+        const yearsContainer = document.getElementById('yearsContainer');
+
+        // Toggle 'Years' input visibility
+        typeSelect.addEventListener('change', function() {
+            if (this.value === 'anniversary') {
+                yearsContainer.classList.remove('hidden');
+            } else {
+                yearsContainer.classList.add('hidden');
+            }
+        });
+
+        function generateMessage() {
+            const name = document.getElementById('colleagueName').value.trim() || "Colleague";
+            const type = document.getElementById('applauseType').value;
+            const details = document.getElementById('details').value.trim();
+            const years = document.getElementById('yearsCount').value;
+
+            let message = "";
+
+            // Logic to build the message based on type and details
+            switch (type) {
+                case 'anniversary':
+                    let yearText = years ? `${years}-year ` : "";
+                    message = `Happy ${yearText}work anniversary, ${name}! \n\nIt's incredible to see how much you've accomplished here. `;
+                    if (details) {
+                        message += `Specifically, I wanted to highlight: ${details}. `;
+                    } else {
+                        message += `Thank you for your continued dedication and hard work. `;
+                    }
+                    message += `Here's to another fantastic year ahead!`;
+                    break;
+
+                case 'retirement':
+                    message = `Congratulations on your well-deserved retirement, ${name}! \n\nWe are going to miss you around here. `;
+                    if (details) {
+                        message += `Your impact has been huge, especially when you: ${details}. `;
+                    } else {
+                        message += `Thank you for all the years of leadership and support. `;
+                    }
+                    message += `Wishing you all the best in this new chapter of your life!`;
+                    break;
+
+                case 'contribution':
+                    message = `Huge kudos to ${name} for an outstanding job! \n\n`;
+                    if (details) {
+                        message += `I wanted to take a moment to recognize your work on: ${details}. It really made a difference. `;
+                    } else {
+                        message += `Your recent contributions have been incredibly valuable to the team. `;
+                    }
+                    message += `Keep up the amazing work!`;
+                    break;
+
+                case 'birthday':
+                    message = `Happy Birthday, ${name}! 🎂\n\n`;
+                    if (details) {
+                        message += `Hope you have a fantastic day! ${details}. `;
+                    } else {
+                        message += `Wishing you a day filled with joy and a fantastic year ahead. `;
+                    }
+                    message += `Enjoy your special day!`;
+                    break;
+
+                case 'promotion':
+                    message = `Big congratulations on your promotion, ${name}! 🚀\n\n`;
+                    if (details) {
+                        message += `It is so well deserved, especially considering how you ${details}. `;
+                    } else {
+                        message += `This is a well-deserved recognition of your hard work and talent. `;
+                    }
+                    message += `Excited to see you crush it in this new role!`;
+                    break;
+
+                case 'others':
+                    message = `Hi ${name}, just wanted to send a quick note of appreciation. \n\n`;
+                    if (details) {
+                        message += `${details} \n\n`;
+                    } else {
+                        message += `Thank you for being such a great colleague and always bringing your best to the team. `;
+                    }
+                    message += `Thanks for everything you do!`;
+                    break;
+            }
+
+            // Set content to modal and show
+            document.getElementById('resultOutput').value = message;
+            document.getElementById('outputModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('outputModal').style.display = 'none';
+        }
+
+        function copyToClipboard() {
+            const copyText = document.getElementById("resultOutput");
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value).then(() => {
+                showToast();
+            });
+        }
+
+        function showToast() {
+            var x = document.getElementById("toast");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+
+        // Close modal if clicking outside the box
+        window.onclick = function(event) {
+            const modal = document.getElementById('outputModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
