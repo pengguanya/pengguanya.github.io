@@ -78,6 +78,8 @@ Here is the final result. Notice how the fonts, background blobs, and button sty
 
 ![Step 3: Final Polished UI with Purple Theme and Custom Fonts](assets/img/2026-02-19-non-programmer-guide-to-building-with-ai/applause-gen-step3.png)
 
+**Want to try it yourself?** I've deployed the final version of the Applause Generator—[give it a spin here](https://ubiquitous-marshmallow-6a1873.netlify.app/) and send some appreciation to your colleagues!
+
 ## Final Thoughts
 
 This structured approach completely removes the overwhelm of building software. By strictly defining your Goal, Input, and Output first, and saving the Layout and Features for later iterations, anyone can build highly customized tools. 
