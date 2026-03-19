@@ -49,9 +49,9 @@ Now I could actually read what was happening. The error was:
 
 ```
 SAML authentication successful. Connecting to VPN...
-  Server: gwgp_rmu.roche.net
-  User: pengg3
-POST https://gwgp_rmu.roche.net/ssl-vpn/login.esp
+  Server: gwgp_rmu.example.net
+  User: <username>
+POST https://gwgp_rmu.example.net/ssl-vpn/login.esp
 Got HTTP response: 512
 auth-failed-password-empty
 ```
@@ -77,20 +77,20 @@ Same error. Stdin wasn't the issue --- or at least, not the only issue.
 Maybe the cookie was malformed or truncated. I printed the raw SAML output from `gp_saml_gui.py` and inspected each field:
 
 ```
-HOST='https://portalgp.roche.net/gateway:prelogin-cookie'
-USER='pengg3'
+HOST='https://portalgp.example.net/gateway:prelogin-cookie'
+USER='<username>'
 COOKIE='<long base64 string>'
 OS='linux-64'
 ```
 
-The cookie looked valid. But something caught my attention: the `HOST` URL contained `portalgp.roche.net` --- that's the **portal**, not a **gateway**.
+The cookie looked valid. But something caught my attention: the `HOST` URL contained `portalgp.example.net` --- that's the **portal**, not a **gateway**.
 
 ### Hypothesis 3: Portal vs. Gateway Authentication
 
 This was the turning point. I traced what OpenConnect does with a portal cookie by reading its verbose output:
 
 1. OpenConnect authenticates against the **portal** using the SAML cookie --- **succeeds**
-2. Portal discovers 12 available gateways and selects one (Basel: `gwgp_rmu.roche.net`)
+2. Portal discovers 12 available gateways and selects one (Basel: `gwgp_rmu.example.net`)
 3. OpenConnect tries to authenticate against the **gateway** using the same portal cookie --- **fails**
 
 The portal cookie is a proof-of-identity for the portal. The gateway expects its own cookie. They are not interchangeable.
@@ -99,7 +99,7 @@ I found [OpenConnect issue #147](https://gitlab.com/openconnect/openconnect/-/is
 
 ### Root Cause
 
-The script was authenticating against the **portal** (`portalgp.roche.net`) and then relying on OpenConnect to negotiate with the gateway. This two-phase flow breaks because:
+The script was authenticating against the **portal** (`portalgp.example.net`) and then relying on OpenConnect to negotiate with the gateway. This two-phase flow breaks because:
 
 1. Portal cookies are not valid for gateway authentication
 2. The stdin pipe is consumed during the first authentication phase
@@ -127,10 +127,10 @@ Since each gateway has its own hostname, I added a mapping array to make the scr
 
 ```bash
 declare -A GATEWAYS=(
-    ["Basel"]="gwgp_rmu.roche.net"
-    ["Mannheim"]="gwgp_mah.roche.net"
-    ["Tokyo"]="gwgp_rt5.roche.net"
-    ["Santa_Clara"]="gwgp_sc1.roche.net"
+    ["Basel"]="gwgp_rmu.example.net"
+    ["Mannheim"]="gwgp_mah.example.net"
+    ["Tokyo"]="gwgp_rt5.example.net"
+    ["Santa_Clara"]="gwgp_sc1.example.net"
     # ... 12 gateways total
 )
 
@@ -154,7 +154,7 @@ I worked with Claude Code (an AI coding agent running in my terminal) throughout
 - **Editing scripts safely**: It modified `open_con.sh` and `open_con_client.sh` with proper error handling, preserving the existing structure.
 
 **What AI was NOT good at (where I drove the process):**
-- **Recognizing the portal vs. gateway distinction**: The AI initially tried several approaches that worked around the stdin issue without questioning whether the cookie itself was valid for the gateway. I noticed the `portalgp.roche.net` in the HOST field and asked "is a portal cookie even valid for gateway auth?" That question changed the direction of the investigation.
+- **Recognizing the portal vs. gateway distinction**: The AI initially tried several approaches that worked around the stdin issue without questioning whether the cookie itself was valid for the gateway. I noticed the `portalgp.example.net` in the HOST field and asked "is a portal cookie even valid for gateway auth?" That question changed the direction of the investigation.
 - **Testing**: The AI couldn't run `opencon` and see if the VPN actually connected. I was the one who tested each attempt and reported results back.
 - **Domain knowledge**: Understanding that corporate GlobalProtect deployments have portals and gateways as separate entities, and that authentication flows differ between them --- that came from experience, not from the AI.
 
@@ -244,7 +244,7 @@ This experience illustrates a workflow I've started using for all infrastructure
 
 5. **Close the loop**: Include instructions for the AI to update the knowledge base when it encounters new patterns. The system should get better over time, not just at the point of initial creation.
 
-This is not about replacing human judgment. The moment where I noticed `portalgp.roche.net` in the HOST field and questioned whether a portal cookie was valid for gateway auth --- that was the breakthrough, and it required domain knowledge that no AI had. But everything before and after that insight (reading logs, searching issues, writing code, structuring the knowledge) was work the AI handled more efficiently than I would have.
+This is not about replacing human judgment. The moment where I noticed `portalgp.example.net` in the HOST field and questioned whether a portal cookie was valid for gateway auth --- that was the breakthrough, and it required domain knowledge that no AI had. But everything before and after that insight (reading logs, searching issues, writing code, structuring the knowledge) was work the AI handled more efficiently than I would have.
 
 ---
 
