@@ -9,7 +9,7 @@ math: false
 
 My VPN stopped connecting. Not with a helpful error message --- the Alacritty terminal window spawned by my `opencon` command opened for a fraction of a second and closed. No output, no log, nothing to diagnose. Just a terminal flash and silence.
 
-This is the story of how I used an AI coding agent to diagnose the failure, trace it to an undocumented protocol behavior in OpenConnect, implement a fix, and then turn the entire investigation into a reusable diagnostic skill that captures what we learned. The debugging itself took a few hours. But the interesting part is what happened afterward: transforming a one-off fix into a system that accumulates knowledge over time.
+This is the story of how I used an AI coding agent to diagnose the failure, trace it to an undocumented protocol behavior in OpenConnect, implement a fix, and then turn the entire investigation into a reusable [Agent Skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) --- a structured diagnostic procedure that the AI can load and follow autonomously the next time something breaks. The debugging itself took a few hours. But the interesting part is what happened afterward: encoding what we learned into a skill that accumulates knowledge over time, so the same class of problem never requires re-discovery.
 
 ---
 
@@ -175,7 +175,7 @@ This knowledge would be useful the next time something breaks. But if it lives o
 
 ### Building a Diagnostic Skill
 
-I created an [Agent Skill](https://opencode.ai/docs/skills/) --- a structured Markdown file that encodes the diagnostic workflow and accumulated knowledge. The skill lives at `~/.claude/skills/vpn-diagnose/SKILL.md` and is automatically available to the AI agent in future sessions. The `~/.claude/skills/` path is a shared discovery location for both [OpenCode](https://opencode.ai) and [Claude Code](https://docs.anthropic.com/en/docs/claude-code), so the same skill works with either agent.
+I created an [Agent Skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) --- a structured Markdown file that encodes the diagnostic workflow and accumulated knowledge. The skill lives at `~/.claude/skills/vpn-diagnose/SKILL.md` and is automatically available to the AI agent in future sessions. The `~/.claude/skills/` path is a shared discovery location for both [OpenCode](https://opencode.ai) and [Claude Code](https://docs.anthropic.com/en/docs/claude-code), so the same skill works with either agent.
 
 The skill defines a five-step diagnostic workflow:
 
@@ -228,7 +228,7 @@ This experience illustrates a workflow I've started using for all infrastructure
 
 3. **Capture the knowledge**: After fixing the issue, ask: "If this breaks again in six months, what would I need to know?" Write that down --- not just the fix, but the diagnostic path, the error patterns, and the verification steps.
 
-4. **Make the knowledge actionable**: Don't stop at documentation. Encode the diagnostic workflow in a format the AI can use autonomously (an Agent Skill, a runbook, a structured checklist). The next time something breaks, the AI should be able to follow the procedure without human guidance for known issues.
+4. **Make the knowledge actionable**: Don't stop at documentation. Encode the diagnostic workflow in a format the AI can use autonomously (an [Agent Skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview), a runbook, a structured checklist). The next time something breaks, the AI should be able to follow the procedure without human guidance for known issues.
 
 5. **Close the loop**: Include instructions for the AI to update the knowledge base when it encounters new patterns. The system should get better over time, not just at the point of initial creation.
 
