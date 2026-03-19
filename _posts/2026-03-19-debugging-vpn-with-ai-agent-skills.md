@@ -204,19 +204,7 @@ Each pattern includes the error string to match, the root cause explanation, the
 
 This creates a feedback loop:
 
-```
-VPN fails → AI loads skill → follows diagnostic workflow
-                                      ↓
-                              matches known pattern? → apply fix
-                                      ↓ (no)
-                              investigate → find root cause
-                                      ↓
-                              fix the issue
-                                      ↓
-                              update skill with new pattern
-                                      ↓
-                              update documentation
-```
+![Knowledge Accumulation Loop: VPN fails, AI loads skill, follows diagnostic workflow, matches known patterns or investigates new ones, fixes the issue, and updates the skill and documentation for next time](/assets/img/2026-03-19-debugging-vpn-with-ai-agent-skills/knowledge-accumulation-loop.svg)
 
 Each failure makes the system smarter. The first time an error occurs, it requires investigation. The second time, the skill already knows the answer. This is not machine learning --- it's structured knowledge capture. But the effect is similar: the system improves with experience.
 
