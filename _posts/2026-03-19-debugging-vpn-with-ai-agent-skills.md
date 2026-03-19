@@ -1,5 +1,5 @@
 ---
-title: "From Invisible Error to Reusable Diagnostic Skill: Debugging a VPN Failure with AI"
+title: "AI Agent Skills: Turning One-Off Fixes into Reusable Knowledge"
 date: 2026-03-19
 author: peng
 categories: [AI & ML]
