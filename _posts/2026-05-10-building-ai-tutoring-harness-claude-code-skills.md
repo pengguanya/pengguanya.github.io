@@ -5,6 +5,9 @@ author: peng
 categories: [AI & ML]
 tags: [claude-code, ai-agents, skills, human-in-the-loop, agentic-systems, prompt-engineering]
 math: false
+image:
+  path: assets/headers/2026-05-10-building-ai-tutoring-harness-claude-code-skills.png
+  alt: "Two Gaussian distributions side by side: without harness, AI points to the peak (most probable); with harness, the arrow redirects to a less probable but more useful bar. Tagline: Plausible ≠ Useful."
 ---
 
 I'd been running my AI-powered exercise generation system for weeks. It produced worksheets, rendered them to PDF, evaluated photographed handwritten answers, tracked scores, and adapted difficulty --- all orchestrated through Claude Code skills. The architecture was sound. The workflow was smooth. The output looked professional.
