@@ -23,7 +23,7 @@ Before I get into what went wrong, some context on what I mean by "agentic harne
 
 Most people use LLMs as chat. You ask a question, you get an answer. An agentic harness is the structure you put around the AI to make it do sustained, multi-step work: generating content in a specific format, persisting state between sessions, following a workflow with human checkpoints, and feeding its own output back into future inputs.
 
-In my case, the harness is a set of Claude Code [skills](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/tutorials#create-custom-slash-commands) --- markdown files that define reusable agent workflows invoked via slash commands. One skill generates exam prep worksheets. Another evaluates photographed answers. A third routes incoming photos to the right worksheet. They share Python libraries for deterministic operations: PDF rendering, atomic progress updates, email delivery.
+In my case, the harness is a set of Claude Code [skills](https://code.claude.com/docs/en/skills) --- markdown files that define reusable agent workflows invoked via slash commands. One skill generates exam prep worksheets. Another evaluates photographed answers. A third routes incoming photos to the right worksheet. They share Python libraries for deterministic operations: PDF rendering, atomic progress updates, email delivery.
 
 The skill file is the harness. It's a 650-line markdown specification that tells Claude what to read, what to generate, what format to use, and where to stop and wait for human approval. It's not a prompt --- it's an operating manual that the AI loads every time the skill runs.
 
