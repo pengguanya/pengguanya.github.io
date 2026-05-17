@@ -78,7 +78,7 @@ In Claude Code, **auto-memory** is the daytime note-taking. The agent jots down 
 
 There's a critical safety property: during the dream cycle, the agent can only write to memory files. It cannot modify source code or run arbitrary commands. The consolidation process is sandboxed.
 
-Anthropic brought the same concept to their Managed Agents API as **Dreams** --- an async job that reads a memory store plus past session transcripts and produces a reorganized output store. The input is never modified directly. You review the consolidated output before committing it. The same principle: separate the messy accumulation phase from the structured consolidation phase, and let the consolidation run offline.
+Anthropic brought the same concept to their Managed Agents API as [**Dreams**](https://platform.claude.com/docs/en/managed-agents/dreams) --- an async job that reads a memory store plus past session transcripts and produces a reorganized output store. The input is never modified directly. You review the consolidated output before committing it. The same principle: separate the messy accumulation phase from the structured consolidation phase, and let the consolidation run offline.
 
 This is the piece most memory tutorials skip entirely. They show you how to build the filing cabinet. They don't show you how to keep it from turning into a junk drawer.
 
