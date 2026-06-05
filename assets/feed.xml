@@ -22,8 +22,7 @@ permalink: /feed.xml
   <icon>{{ site.baseurl }}/assets/img/favicons/favicon.ico</icon>
   <logo>{{ site.baseurl }}/assets/img/favicons/favicon-96x96.png</logo>
 
-{% assign feed_limit = site.feed.posts_limit | default: 20 %}
-{% for post in site.posts limit: feed_limit %}
+{% for post in site.posts %}
   {% assign post_absolute_url = post.url | absolute_url %}
   <entry>
     <title>{{ post.title }}</title>
