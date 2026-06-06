@@ -3,13 +3,15 @@ title: "One Person, One AI, One Morning: The New Shape of Knowledge Work"
 date: 2026-06-06
 author: peng
 categories: [AI & ML]
-tags: [ai-agents, claude-code, productivity, workflow, automation, enterprise-ai, knowledge-work]
+tags: [ai-agents, claude-code, productivity, workflow, automation, enterprise-ai, knowledge-work, digital-twin]
 math: false
 ---
 
+There's a concept gaining traction in how we think about AI at work: the **AI digital twin**. Not a chatbot you query for answers, but a persistent AI agent that knows your projects, has access to your tools and data sources, and can act on your behalf --- drafting communications, cross-referencing systems, organizing information. Gartner estimates that 70% of knowledge workers will actively use digital twins by 2030. I think the shift is already happening, and this morning was the clearest example I've experienced.
+
 I needed to launch a training pilot. The task sounded simple: find the right audience across two overlapping teams, get their contact details, announce the program, and set up a way to collect feedback. In a normal week, this would mean asking someone to pull member lists, cross-referencing them in a spreadsheet, chasing email addresses through the company directory, drafting an announcement, getting it reviewed, and scheduling a kickoff meeting. Three people, two days, a dozen context switches.
 
-I did it in one morning with an AI assistant. Not by working faster --- by working differently.
+I did it in one morning with my AI digital twin. Not by working faster --- by working differently.
 
 ---
 
@@ -27,9 +29,9 @@ Normally, you'd ask a team lead to forward a list, cross-check it against anothe
 
 ## The AI Workflow
 
-Instead of navigating this maze manually, I described the goal to an AI assistant and let it work through the problem systematically. The entire workflow looked like this:
+Instead of navigating this maze manually, I described the goal to my AI digital twin and let it work through the problem systematically. The entire workflow looked like this:
 
-![AI-driven training pilot workflow: context sources feed into AI assistant, which drives four phases --- identify audience, communicate, collect feedback, organize meetings](/assets/img/2026-06-06-one-person-one-ai-one-morning/ai-workflow-diagram.svg)
+![AI-driven training pilot workflow: context sources feed into AI digital twin, which drives four phases --- identify audience, communicate, collect feedback, organize meetings](/assets/img/2026-06-06-one-person-one-ai-one-morning/ai-workflow-diagram.svg)
 
 Each phase built on the previous one, all within a single conversation.
 
@@ -51,7 +53,7 @@ The drafts weren't generic templates. Because the AI had access to the chat hist
 
 This is the part that changed how I think about coordination. Instead of scheduling a large meeting or building a survey, I posted a simple message in the chat:
 
-> For feedback --- just drop your thoughts in this chat whenever they come to mind. Don't worry about structure or format. I have an AI assistant connected to this space that handles the organizing and summarizing. Once I've collected enough feedback, I'll set up small group or 1:1 follow-ups as needed.
+> For feedback --- just drop your thoughts in this chat whenever they come to mind. Don't worry about structure or format. I have an AI digital twin connected to this space that handles the organizing and summarizing. Once I've collected enough feedback, I'll set up small group or 1:1 follow-ups as needed.
 
 The usual feedback cycle --- schedule meeting, prepare agenda, wrangle calendars, take notes, summarize, distribute --- collapses into something much simpler. People contribute when a thought strikes them, in the moment they're actually experiencing the curriculum. The AI reads the chat history, aggregates responses, categorizes them by theme, and surfaces the patterns. No one has to structure their feedback. No one has to attend a meeting where three people talk and eleven listen.
 
@@ -65,7 +67,7 @@ When it's time to schedule those small-group sessions, the same coordination cha
 
 ## What Actually Changed
 
-Let me be specific about what the AI did and didn't do.
+Let me be specific about what the digital twin did and didn't do.
 
 **What it did:**
 - Queried multiple internal systems and navigated their different data models
@@ -81,7 +83,7 @@ Let me be specific about what the AI did and didn't do.
 - Send the communications (I reviewed and sent them myself)
 - Replace my judgment about tone, timing, or organizational dynamics
 
-The AI didn't replace a team --- it replaced the *mechanical work* that a team would spend most of its time on. The strategic decisions, the relationship management, the organizational awareness --- those stayed with me. The data wrangling, the cross-referencing, the drafting, the scheduling --- all of that happened in conversation while I focused on the decisions that actually require human judgment.
+The digital twin didn't replace a team --- it replaced the *mechanical work* that a team would spend most of its time on. The strategic decisions, the relationship management, the organizational awareness --- those stayed with me. The data wrangling, the cross-referencing, the drafting, the scheduling --- all of that happened in conversation while I focused on the decisions that actually require human judgment.
 
 ---
 
@@ -91,7 +93,7 @@ The roles this work would traditionally require aren't specialized. They're coor
 
 A **project coordinator** would track the member lists, chase down email addresses, schedule meetings. A **data analyst** would cross-reference the two spaces, identify overlaps, clean the data. A **communications person** would draft the announcement, calibrate the tone, manage the distribution. Each role might spend half a day on their part, with handoff delays between them.
 
-With an AI assistant, one person does all three --- not because the AI makes you faster at each task, but because it eliminates the handoffs. There's no briefing document to write for the analyst. No email thread with the comms team about tone. No waiting for the coordinator to get back to you with the member list. The entire workflow stays in one conversation, with one context, building on itself.
+With an AI digital twin, one person does all three --- not because it makes you faster at each task, but because it eliminates the handoffs. There's no briefing document to write for the analyst. No email thread with the comms team about tone. No waiting for the coordinator to get back to you with the member list. The entire workflow stays in one conversation, with one context, building on itself.
 
 This is the multiplier. It's not "AI makes you 3x faster." It's "AI removes the coordination cost that made this a three-person job."
 
@@ -113,10 +115,10 @@ The key insight: **the AI handles the part humans are worst at** (organizing uns
 
 I'm not claiming this is revolutionary technology. Every piece of what happened this morning --- data queries, cross-referencing, email drafting --- could have been done with scripts and spreadsheets. The difference is in the interaction model.
 
-With scripts, you need to know the system in advance, write the code, handle the edge cases, debug the failures. With an AI assistant, you describe the goal and iterate. When one approach hits a dead end, you try another --- all within the same conversation, with full context preserved. That kind of exploratory, adaptive problem-solving is exactly what makes cross-system coordination tasks so time-consuming for humans working alone.
+With scripts, you need to know the system in advance, write the code, handle the edge cases, debug the failures. With a digital twin, you describe the goal and iterate. When one approach hits a dead end, you try another --- all within the same conversation, with full context preserved. That kind of exploratory, adaptive problem-solving is exactly what makes cross-system coordination tasks so time-consuming for humans working alone.
 
-The pattern I see emerging is this: **one person with domain knowledge plus an AI with technical reach can do the work of a small coordination team**. Not because either party is exceptional, but because the combination eliminates the communication overhead that makes small teams slow.
+The pattern I see emerging is this: **one person with domain knowledge plus an AI digital twin with technical reach can do the work of a small coordination team**. Not because either party is exceptional, but because the combination eliminates the communication overhead that makes small teams slow.
 
-This morning's task wasn't complex. It was *dispersed* --- spread across multiple systems, requiring multiple skill sets, producing outputs in multiple formats for multiple channels. That dispersion is what creates coordination costs. And coordination costs are what AI assistants are quietly, undramatically eliminating.
+This morning's task wasn't complex. It was *dispersed* --- spread across multiple systems, requiring multiple skill sets, producing outputs in multiple formats for multiple channels. That dispersion is what creates coordination costs. And coordination costs are what AI digital twins are quietly, undramatically eliminating.
 
 The future of knowledge work isn't AI replacing people. It's one person, with the right tools, doing what used to require a room full of people --- and doing it before lunch.
