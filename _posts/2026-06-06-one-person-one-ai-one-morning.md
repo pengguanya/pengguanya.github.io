@@ -7,120 +7,73 @@ tags: [ai-agents, claude-code, productivity, workflow, automation, enterprise-ai
 math: false
 ---
 
-There's a concept gaining traction in how we think about AI at work: the **AI digital twin**. Not a chatbot you query for answers, but a persistent AI agent that knows your projects, has access to your tools and data sources, and can act on your behalf --- drafting communications, cross-referencing systems, organizing information. Gartner estimates that 70% of knowledge workers will actively use digital twins by 2030. I think the shift is already happening, and this morning was the clearest example I've experienced.
+I needed to launch a training pilot --- an eight-course AI development curriculum --- across multiple teams in a large global organization. If you've worked in a global organization, you know what comes next.
 
-What makes it a "twin" rather than just an assistant? Training. Over weeks and months, I've been encoding my working habits, domain knowledge, and repeatable workflows into the agent through skills (reusable markdown specifications), persistent memory files, and MCP connectors that give it authenticated access to our internal communication platforms, company directory, cloud drive, and calendar. The agent doesn't just respond to prompts --- it knows how I work, which systems to query, and how to navigate our organizational tooling. It's less like hiring a contractor you have to brief from scratch, and more like having a colleague who's been sitting next to you for months and already has all the logins.
+Finding the right audience means navigating overlapping teams with no single system of record. Communicating the rollout means drafting messages tailored to different channels, each with its own context and tone. Coordinating across timezones means chasing people through chat spaces, email, and calendar tools that don't talk to each other. Collecting feedback means figuring out how to get honest reactions from busy people without drowning everyone in meetings and surveys. And iterating means turning all of that unstructured input into actionable themes and organizing the right follow-up conversations with the right subgroups.
 
-I needed to launch a training pilot. The task sounded simple: find the right audience across two overlapping teams, get their contact details, announce the program, and set up a way to collect feedback. In a normal week, this would mean asking someone to pull member lists, cross-referencing them in a spreadsheet, chasing email addresses through the company directory, drafting an announcement, getting it reviewed, and scheduling a kickoff meeting. Three people, two days, a dozen context switches.
+Normally, this would mean a project coordinator, a comms person, and a lot of back-and-forth. Three people, two days, a dozen context switches.
 
-I did it in one morning with my AI digital twin. Not by working faster --- by working differently.
-
----
-
-## The Organizational Maze
-
-If you've worked in a global organization, you know the feeling. Teams span continents and timezones. People belong to multiple groups, workstreams, and communication channels. Organizational charts are approximations at best. The actual structure lives in chat spaces, mailing lists, shared drives, and the informal knowledge of people who've been around long enough to know who does what.
-
-Our training curriculum was ready --- eight courses covering everything from prompt engineering fundamentals to regulatory compliance. The pilot audience had a clear definition: people who belong to both the broader technology organization and the specific product team building our AI system. These are the developers closest to the work, the ones whose feedback would be most valuable before a broader rollout.
-
-But "people in both groups" is a deceptively hard query to answer in a large organization. The two groups live in separate chat spaces. The membership models are different --- one space has direct members, the other routes most people through a group alias. Neither space exposes a clean member list with names and email addresses. There's no single system of record that knows who is in both.
-
-Normally, you'd ask a team lead to forward a list, cross-check it against another team lead's list, email a few people to confirm, discover half the addresses are wrong, and iterate. By the time you have a verified recipient list, you've spent a day on what should have been a five-minute task.
+I did it in one morning with my **AI digital twin**. Not by working faster --- by working differently.
 
 ---
 
-## The AI Workflow
+## What's an AI Digital Twin?
 
-Instead of navigating this maze manually, I described the goal to my AI digital twin and let it work through the problem systematically. The entire workflow looked like this:
+There's a concept gaining traction in how we think about AI at work: the **AI digital twin**. Not a chatbot you query for answers, but a persistent AI agent that knows your projects, has access to your tools and data sources, and can act on your behalf. Gartner estimates that 70% of knowledge workers will actively use digital twins by 2030.
+
+What makes it a "twin" rather than just an assistant? Training. Over months, I've been encoding my working habits, domain knowledge, and repeatable workflows into the agent through skills (reusable markdown specifications), persistent memory files, and MCP connectors that give it authenticated access to our internal communication platforms, company directory, cloud drive, and calendar. It's less like hiring a contractor you brief from scratch, and more like having a colleague who's been sitting next to you for months and already has all the logins.
+
+---
+
+## The Workflow
+
+Instead of navigating the organizational maze manually, I described the goal and let the digital twin work through it systematically:
 
 ![AI-driven training pilot workflow: context sources feed into AI digital twin, which drives four phases --- identify audience, communicate, collect feedback, organize meetings](/assets/img/2026-06-06-one-person-one-ai-one-morning/ai-workflow-diagram.svg)
+_The digital twin draws from multiple context sources and drives four phases of work --- all within a single conversation._
 
-Each phase built on the previous one, all within a single conversation.
+**Identify the audience.** The AI pulled membership data from both chat spaces. When one list came back incomplete --- most people had joined through a group alias --- it adapted, building a fuller participant set from message senders and mentions. It cross-referenced the two sets, then queried the company directory for verified contact details, catching email addresses on a different corporate domain that I would have gotten wrong.
 
-### Phase 1: Identify the Audience
+**Communicate.** The AI drafted a detailed launch email and a shorter chat message, both drawing on months of team discussion history it already had access to. I reviewed, adjusted, and sent.
 
-The AI connected to our internal messaging platform and pulled the membership data from both spaces. When the direct membership list came back incomplete --- most people had joined one space through a group rather than individually --- it adapted. Instead of stopping at the incomplete list, it fetched the message history from the space and built a more complete participant set from three sources: direct members, people who had sent messages, and people who had been mentioned by others.
+**Collect feedback.** Instead of scheduling a large meeting or building a survey, I posted a simple message in the chat:
 
-With both participant sets assembled, it cross-referenced them to find the overlap. Then it queried the company directory to resolve each person's verified contact information. This step caught something I would have missed: several team members had email addresses on a different corporate domain than the standard convention suggested. Deriving addresses from names would have produced bounced emails.
+> Just drop your thoughts in chat whenever they come to mind. Don't worry about structure or format --- the AI handles the organizing.
 
-The result: a verified contact list, exported as a CSV, ready to use --- in minutes rather than days.
+People contribute in the moment they're experiencing the curriculum. The AI aggregates by theme and proposes targeted follow-up topics. No structured surveys. No large cross-timezone meetings where only a few people talk.
 
-### Phase 2: Communicate
-
-With the audience identified, the AI drafted two communications: a detailed email introducing the curriculum (with links to the learning platform and supplementary materials) and a shorter chat message explaining why this specific group was selected for the pilot. I reviewed both, made minor adjustments, and sent them.
-
-The drafts weren't generic templates. Because the AI had access to the chat history where the curriculum had been discussed and refined over months, it understood the context --- the phased structure, the distinction between auditable and supplementary training, the feedback we'd already received from stakeholders. The communications reflected that context without me having to brief the AI separately.
-
-### Phase 3: Collect Feedback
-
-This is the part that changed how I think about coordination. Instead of scheduling a large meeting or building a survey, I posted a simple message in the chat:
-
-> For feedback --- just drop your thoughts in this chat whenever they come to mind. Don't worry about structure or format. I have an AI digital twin connected to this space that handles the organizing and summarizing. Once I've collected enough feedback, I'll set up small group or 1:1 follow-ups as needed.
-
-The usual feedback cycle --- schedule meeting, prepare agenda, wrangle calendars, take notes, summarize, distribute --- collapses into something much simpler. People contribute when a thought strikes them, in the moment they're actually experiencing the curriculum. The AI reads the chat history, aggregates responses, categorizes them by theme, and surfaces the patterns. No one has to structure their feedback. No one has to attend a meeting where three people talk and eleven listen.
-
-And because the AI can identify which topics generate the most discussion or disagreement, it can propose targeted follow-up conversations --- small groups organized around specific themes rather than one large meeting covering everything.
-
-### Phase 4: Organize Follow-ups
-
-When it's time to schedule those small-group sessions, the same coordination challenge reappears: a dozen people across multiple timezones, each with their own calendar constraints. The AI can query availability, find common slots, and create calendar invites with pre-populated agendas drawn from the feedback themes. What would normally take several rounds of "does Thursday work for everyone?" emails becomes a single step.
+**Organize follow-ups.** When it's time for small-group sessions, the AI can find available slots across timezones and create calendar invites with pre-populated agendas drawn from the feedback themes. What would normally take several rounds of "does Thursday work?" emails becomes a single step.
 
 ---
 
 ## What Actually Changed
 
-Let me be specific about what the digital twin did and didn't do.
+The digital twin didn't replace a team. It replaced the *coordination work* that makes simple tasks require multiple people.
 
-**What it did:**
-- Queried multiple internal systems and navigated their different data models
-- Cross-referenced data sets that existed in separate platforms with different schemas
-- Identified edge cases I would have missed (incorrect email addresses)
-- Drafted professional communications with appropriate context and tone
-- Designed a feedback collection workflow that eliminates coordination overhead
-- Can organize follow-up meetings across timezones
+A project coordinator would track member lists and schedule meetings. A data analyst would cross-reference spaces and clean the data. A communications person would draft announcements and manage distribution. Each might spend half a day, with handoff delays between them.
 
-**What it didn't do:**
-- Decide who should be in the pilot group (I defined the criteria)
-- Choose the curriculum content (that was months of human work)
-- Send the communications (I reviewed and sent them myself)
-- Replace my judgment about tone, timing, or organizational dynamics
+With a digital twin, one person does all three --- not because the AI makes you faster at each task, but because it eliminates the handoffs. No briefing document for the analyst. No email thread with comms about tone. No waiting for the coordinator's member list. The entire workflow stays in one conversation, with one context, building on itself.
 
-The digital twin didn't replace a team --- it replaced the *mechanical work* that a team would spend most of its time on. The strategic decisions, the relationship management, the organizational awareness --- those stayed with me. The data wrangling, the cross-referencing, the drafting, the scheduling --- all of that happened in conversation while I focused on the decisions that actually require human judgment.
-
----
-
-## The Multiplier Effect
-
-The roles this work would traditionally require aren't specialized. They're coordination roles.
-
-A **project coordinator** would track the member lists, chase down email addresses, schedule meetings. A **data analyst** would cross-reference the two spaces, identify overlaps, clean the data. A **communications person** would draft the announcement, calibrate the tone, manage the distribution. Each role might spend half a day on their part, with handoff delays between them.
-
-With an AI digital twin, one person does all three --- not because it makes you faster at each task, but because it eliminates the handoffs. There's no briefing document to write for the analyst. No email thread with the comms team about tone. No waiting for the coordinator to get back to you with the member list. The entire workflow stays in one conversation, with one context, building on itself.
-
-This is the multiplier. It's not "AI makes you 3x faster." It's "AI removes the coordination cost that made this a three-person job."
+The multiplier isn't "AI makes you 3x faster." It's "AI removes the coordination cost that made this a three-person job."
 
 ---
 
 ## Unstructured In, Structured Out
 
-The feedback workflow deserves special attention because it inverts a pattern most knowledge workers take for granted.
+The feedback workflow inverts a pattern most knowledge workers take for granted.
 
-Traditional approach: schedule a meeting, ask everyone to prepare thoughts, spend 45 minutes in a room where the loudest voices dominate, write up minutes, distribute, get corrections, finalize. Calendar overhead: two to three weeks. Actual insight captured: whatever people remembered to say in the meeting.
+Traditional: schedule a meeting, wrangle calendars, take notes, distribute minutes. Calendar overhead: weeks. Insight captured: whatever people remembered to say.
 
-AI-augmented approach: open a persistent channel, tell people to post raw thoughts anytime, let the AI aggregate and structure them asynchronously. No scheduling. No preparation. No meeting minutes. People contribute when something occurs to them --- in the moment they're actually experiencing the curriculum --- rather than trying to reconstruct their reactions days later.
+AI-augmented: open a persistent channel, let people post raw thoughts anytime, let the AI structure them asynchronously. People contribute when something occurs to them rather than reconstructing reactions days later in a conference room.
 
-The key insight: **the AI handles the part humans are worst at** (organizing unstructured input from multiple sources over time) **and leaves people free to do the part humans are best at** (having genuine reactions and articulating them naturally). You don't need to impose structure on the input when the AI can extract structure from the output.
+**The AI handles the part humans are worst at** --- organizing unstructured input from multiple sources over time --- **and leaves people free to do the part humans are best at** --- having genuine reactions and articulating them naturally.
 
 ---
 
-## What This Means for How We Work
+## The Emerging Pattern
 
-I'm not claiming this is revolutionary technology. Every piece of what happened this morning --- data queries, cross-referencing, email drafting --- could have been done with scripts and spreadsheets. The difference is in the interaction model.
+The task wasn't complex. It was *dispersed* --- spread across multiple systems, requiring multiple skill sets, producing outputs in multiple formats for multiple channels. That dispersion is what creates coordination costs.
 
-With scripts, you need to know the system in advance, write the code, handle the edge cases, debug the failures. With a digital twin, you describe the goal and iterate. When one approach hits a dead end, you try another --- all within the same conversation, with full context preserved. That kind of exploratory, adaptive problem-solving is exactly what makes cross-system coordination tasks so time-consuming for humans working alone.
-
-The pattern I see emerging is this: **one person with domain knowledge plus an AI digital twin with technical reach can do the work of a small coordination team**. Not because either party is exceptional, but because the combination eliminates the communication overhead that makes small teams slow.
-
-This morning's task wasn't complex. It was *dispersed* --- spread across multiple systems, requiring multiple skill sets, producing outputs in multiple formats for multiple channels. That dispersion is what creates coordination costs. And coordination costs are what AI digital twins are quietly, undramatically eliminating.
+**One person with domain knowledge plus an AI digital twin with technical reach can do the work of a small coordination team.** Not because either party is exceptional, but because the combination eliminates the communication overhead that makes small teams slow.
 
 The future of knowledge work isn't AI replacing people. It's one person, with the right tools, doing what used to require a room full of people --- and doing it before lunch.
