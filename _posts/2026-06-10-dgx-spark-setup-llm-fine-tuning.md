@@ -53,6 +53,7 @@ The default configuration fine-tunes Qwen2.5-1.5B-Instruct on the Databricks Dol
 The DGX Spark has no display --- all work is via SSH. I developed on a local Linux machine (x86_64) and deployed to the Spark (aarch64):
 
 ![Two-machine development workflow: edit locally, push to GitHub, pull and train on DGX Spark, copy profiler logs back for visualization](/assets/img/2026-06-10-dgx-spark-setup-llm-fine-tuning/two-machine-workflow.svg)
+_The edit-push-train-visualize loop between the local machine and the DGX Spark._
 
 This is typical for headless GPU servers. Results are copied back for visualization. The iteration cycle is: edit locally, push, pull on the Spark, rebuild the container, test.
 
