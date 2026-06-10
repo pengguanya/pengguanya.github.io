@@ -7,7 +7,7 @@ tags: [dgx-spark, docker, nvidia, ngc-container, llm-fine-tuning, lora, aarch64,
 math: false
 ---
 
-Our team recently got access to an NVIDIA DGX Spark for LLM work. Before anyone could start experimenting, we needed a reusable pipeline --- something a collaborator or new team member could clone and run without debugging the environment from scratch. The goal wasn't to fine-tune one model once. It was to build a template that handles everything from asset download to training to GPU profiling, portable across whoever uses the machine next.
+A colleague's team recently got access to an NVIDIA DGX Spark for LLM work, and I joined to help set up the infrastructure. Before anyone could start experimenting, we needed a reusable pipeline --- something any collaborator could clone and run without debugging the environment from scratch. The goal wasn't to fine-tune one model once. It was to build a template that handles everything from asset download to training to GPU profiling, portable across whoever uses the machine next.
 
 That turned out to be harder than the actual ML. The DGX Spark uses an ARM-based Grace Blackwell chip (aarch64), not x86_64. That single difference broke assumptions about Python packaging, Docker workflows, and GPU tooling that hold on every other machine I've worked with. Eleven distinct issues came up before the pipeline was solid. This post documents the architecture of the solution, the problems it had to survive, and the design decisions behind it.
 
