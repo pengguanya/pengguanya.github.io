@@ -242,17 +242,13 @@ The profiling data points to a clear optimization path for taking this workload 
 
 ### Medium-term: Scale the Workload
 
-**4. Increase batch size.** With 130.7 GB of unified memory and only 1.6B parameters, the GPU is dramatically underutilized in terms of memory. Increasing batch size from 4 to 16 or 32 would amortize the per-step overhead (kernel launches, synchronization) across more data, improving GPU utilization during steady-state training.
+**4. Increase batch size.** The profiling showed 273,186 kernel launches (12.7% of API time) and 3,380 synchronization calls (2.35 seconds) across 12 training steps. These per-step overheads are fixed costs --- they happen regardless of how much data is in each batch. Increasing batch size would spread these costs across more data per step, which could improve GPU utilization during steady-state training. We didn't measure peak memory usage in this profiling run, so it's hard to say exactly how much headroom is available, but a 1.6B model on 130.7 GB of unified memory likely leaves room to experiment with larger batches.
 
-**5. Enable gradient checkpointing for larger models.** The profiling was done on a 1.5B model using 1.18% of parameters. The DGX Spark can handle 7B or even 72B models with its memory capacity. Gradient checkpointing trades compute for memory, enabling larger models without running out of memory.
-
-**6. Profile with larger models.** The compute-to-data-movement ratio we observed (roughly 1:1) is partly an artifact of the small model size. At 7B+ parameters, GEMM operations dominate and the GPU utilization profile looks very different. A profiling run with a larger model would reveal the *real* bottlenecks at production scale.
+**5. Profile with larger models.** The kernel breakdown in Finding 6 showed roughly 17% of GPU time on data movement (copies, format conversions) and 24% on GEMM compute. In a small model like 1.5B, the weight matrices are relatively small, so the matrix multiplications (the core math in attention and feedforward layers) finish quickly, and the GPU ends up spending a comparable amount of time on housekeeping --- copying data, converting formats, moving things around. In a larger model, each matrix multiplication does much more work per call, but the housekeeping doesn't grow nearly as fast. So the balance would likely shift toward compute taking a larger share of GPU time. A profiling run with a 7B+ model would reveal whether the bottlenecks look different at production scale.
 
 ### Production: Sustained Training
 
-**7. Multi-step profiling with longer runs.** This 12-step profile overweights startup costs. A production profiling run should use `nsys profile` with `--delay` and `--duration` flags to capture only the steady-state training window, after warmup has completed.
-
-**8. Monitor with `torch.profiler` in TensorBoard.** For ongoing training runs, the `torch.profiler` integration with TensorBoard provides live monitoring of step times, GPU utilization, and memory usage without the overhead of a full Nsight Systems trace.
+**6. Profile steady-state only.** As we saw in Findings 2 and 5, the first few steps are dominated by startup costs --- CUDA warmup, kernel compilation, memory pool initialization. Step_0 took 3.74 seconds while later steps settled around 1.5–2 seconds. In a 12-step run, these startup costs make up a large share of the total time and can skew the picture. For production profiling, you'd want to skip the warmup phase entirely and capture only the steady-state training window. Nsight Systems supports this with `--delay` and `--duration` flags, letting you start recording after the first few steps have already completed.
 
 ---
 
