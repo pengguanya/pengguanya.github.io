@@ -1,5 +1,5 @@
 ---
-title: "From Clone to Training: Setting Up LLM Fine-Tuning on DGX Spark"
+title: "LLM Fine-Tuning on DGX Spark: Building a Reusable Training Pipeline"
 date: 2026-06-10
 author: peng
 categories: [DevOps & Computing]
