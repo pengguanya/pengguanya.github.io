@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="model-vs-system" name="Model vs System">
+    <mxGraphModel dx="1414" dy="760" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="960" pageHeight="500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="e5" edge="1" parent="1" source="m" style="endArrow=none;html=1;strokeColor=#c5cdd5;strokeWidth=2;" target="p5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="m" style="endArrow=none;html=1;strokeColor=#c5cdd5;strokeWidth=2;" target="p4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="m" style="endArrow=none;html=1;strokeColor=#c5cdd5;strokeWidth=2;" target="p1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="m" style="endArrow=none;html=1;strokeColor=#c5cdd5;strokeWidth=2;" target="p2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="m" style="endArrow=none;html=1;strokeColor=#c5cdd5;strokeWidth=2;" target="p3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="m" style="endArrow=none;html=1;strokeColor=#c5cdd5;strokeWidth=2;" target="p6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1f2933;" value="A model becomes a system when you wrap it in scaffolding" vertex="1">
+          <mxGeometry height="30" width="600" x="180" y="18" as="geometry" />
+        </mxCell>
+        <mxCell id="m" parent="1" style="rounded=1;html=1;fillColor=#649E00;strokeColor=#304F00;fontColor=#ffffff;fontSize=14;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b style=&quot;&quot;&gt;The model&lt;/b&gt;&lt;br&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;the easy ~10%&lt;/font&gt;" vertex="1">
+          <mxGeometry height="76" width="200" x="380" y="222" as="geometry" />
+        </mxCell>
+        <mxCell id="p1" parent="1" style="rounded=1;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Consistency testing&lt;/font&gt;" vertex="1">
+          <mxGeometry height="58" width="215" x="60" y="91" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="rounded=1;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Grounding &amp;amp; guardrails&lt;/font&gt;" vertex="1">
+          <mxGeometry height="58" width="215" x="60" y="231" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="rounded=1;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Self-critique pass&lt;/font&gt;" vertex="1">
+          <mxGeometry height="58" width="215" x="60" y="371" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="rounded=1;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Trace every step&lt;/font&gt;" vertex="1">
+          <mxGeometry height="58" width="215" x="685" y="91" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="rounded=1;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Human-in-the-loop&lt;/font&gt;" vertex="1">
+          <mxGeometry height="58" width="215" x="685" y="231" as="geometry" />
+        </mxCell>
+        <mxCell id="p6" parent="1" style="rounded=1;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Drift monitoring&lt;/font&gt;" vertex="1">
+          <mxGeometry height="58" width="215" x="685" y="371" as="geometry" />
+        </mxCell>
+        <mxCell id="bottom" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=14;fontColor=#5b6770;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;The other ~90% is the scaffolding that earns trust in production.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="24" width="600" x="180" y="452" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
